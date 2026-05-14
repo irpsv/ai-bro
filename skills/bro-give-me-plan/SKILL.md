@@ -1,96 +1,156 @@
 ---
 name: bro-give-me-plan
-description: Строит детальный план реализации с фиксированной структурой и без домыслов. Use when the user asks to составить план, сделать implementation plan, расписать шаги реализации, продумать план работ, или хочет единообразный план с секциями "Проблема и контекст", "Целевой результат", "Рамки задачи", шагами реализации и критериями приемки.
+description: Use for plan mode / «сделай план» / implementation plan—structured delivery plan only (template in body), no code. Not for implementing fixes, writing code, or reviews unless the user explicitly wants a plan first.
 ---
 
 # Bro Give Me Plan
 
-Use this skill when the user wants a consistent implementation plan, not immediate coding.
+Используй этот скилл для составления плана реализации (implementation plan).
+**НЕ ПИШИ** сам код, только составляй план.
 
-Read [plan-template.md](plan-template.md) before producing the final plan.
-When the target output is a Cursor `.plan.md` file, include both the markdown body and the frontmatter metadata expected by plan files.
-Frontmatter must appear exactly once at the very top of the file and must not be repeated inside the markdown body.
+## ОБЩИЕ ПРАВИЛА
 
-## Core Rules
+1. **ОБЯЗАТЕЛЬНО** спрашивай по одному вопросу, НЕ спрашивай все разом!
 
-1. Do not invent requirements, constraints, touched areas, or acceptance criteria.
-2. If critical input is missing, ask the user concise clarifying questions and stop.
-3. Ask exactly one question at a time.
-   - This applies both to normal conversational questions and to `AskQuestion`.
-   - Never send multiple independent questions in one turn.
-4. Do not produce a draft plan with placeholders or assumptions unless the user explicitly overrides this rule.
-5. Keep the plan detailed, but only from confirmed or directly verified information.
-6. Prefer concrete modules, files, layers, APIs, or scenarios over abstract wording.
-7. If the codebase was inspected, include only findings you can support.
-8. If you emit a `.plan.md`, never leave `todos` empty when the plan has implementation steps.
+2. **ОБЯЗАТЕЛЬНО** соблюдай и **НЕ нарушай** порядок разделов плана!
 
-## Planning Gate
+3. **СНАЧАЛА СОБЕРИ САМОСТОЯТЕЛЬНО** необходимую информацию:
+   - Не спрашивай то, что можно установить с высокой уверенностью.
+   - Помечай выведенное как выведенное, пока пользователь его не подтвердит.
 
-Before writing the plan, verify that all of these are known with enough clarity:
+4. план **ДОЛЖЕН** быть однозначным, без наличия вариаций и вопросов в нём.
 
-- `Проблема и контекст`
-- `Целевой результат`
-- `Рамки задачи`
-- enough information to describe `где и что меняем`
-- enough information to explain `зачем это делаем`
-- `Критерии приемки`
+5. **ОБЯЗАТЕЛЬНО** нужно выяснять все детали и подробности **ДО** создания плана, чтобы в самом плане была только конкретная информация.
 
-If any point is missing or ambiguous, do not write the plan yet.
+## Порядок работы
 
-## What To Ask When Blocked
+1. **СНАЧАЛА** собери всю информацию и необходимый контекст
+2. **ПРОАНАЛИЗИРУЙ** информацию и определи чего тебе не хватает для заполнения всех разделов плана
+3. **ЗАСПРОСИ** у человека необходимую информацию. **ОБЯЗАТЕЛЬНО** соблюдай [правила диалога](#правила-диалога)
+4. **СФОРМИРУЙ** план из полученной информации согласно формату плана
 
-Ask only for the missing essentials. Prefer a short grouped list over a broad interview.
+## Правила диалога
 
-Typical gaps:
+Если нужно задать вопросы пользователю **ОБЯЗАТЕЛЬНО** задавай 1 вопрос за 1 раз.
+Если есть варианты решений **ПРЕДЛОЖИ** их пользователю.
+**ОБЯЗАТЕЛЬНО** нумеруй предлагаемые варианты ответов: 1) 2) 3) ...
 
-- what exact problem is being solved
-- what observable result is expected
-- what is in scope and out of scope
-- which module, layer, file group, or surface should change
-- why a specific change is needed
-- how the user wants to accept or verify the result
+Используй tool `AskQuestion` (или аналог) если выполняются ВСЕ условия:
+   - вопрос до 500 символов
+   - варианты ответов до 200 символов
+   - не требуется развернутый ответ
+   - не требуется дополнительый контекст
 
-Bad questions:
+## Формат плана
 
-- questions whose answer can be established from the current context or code
-- speculative architecture debates with no evidence of a real trade-off
-- broad discovery questions not tied to a missing section
+### Разделы плана
 
-## AskQuestion Usage
+Ровно в таком порядке:
+1. задача и контекст
+2. целевой результат
+3. рамки задачи
+4. шаги реализации
+5. критерии приемки
 
-Use `AskQuestion` tool by default whenever the missing input can be expressed as a bounded choice with a small explicit set of options.
-For bounded clarifications, `AskQuestion` is the required path, not an optional preference.
+#### 1. Задача и контекст
 
-Good uses:
+Цель: сдалть прозрачным контекст и понимание для решения задачи.
 
-- confirm or correct an inferred scope boundary
-- confirm or correct an inferred touched module, file group, or layer
-- yes/no gates such as `Ready to plan`
-- choose from a short list of explicit alternatives that are already known
+Нужно покрыть:
+- какую проблему решаем
+- почему именно сейчас
+- кто затронут
+- как выглядит текущее состояние
+- какие есть подтверждения проблемы, если они есть
 
-Do not use `AskQuestion` for open-ended discovery that needs explanation, nuance, examples, business context, or detailed constraints.
-For those cases, ask a normal conversational question.
+Спрашивай только если неясно:
+- кто страдает
+- почему важен тайминг
+- что именно не так в текущем поведении
 
-If there are multiple blockers, ask the next highest-leverage question only.
-Once that answer is resolved, ask the next one if still needed.
+Критерии выхода:
+- проблема сформулирована конкретно
+- затронутый актор назван
+- срочность объяснена или помечена как неизвестная
 
-## Output Process
+#### 2. Целевой результат
 
-1. Check whether the planning gate is satisfied.
-2. If not satisfied, ask the next blocking question.
-   - If the missing input is bounded, use `AskQuestion`.
-   - Only use a normal conversational question when the missing input is genuinely open-ended.
-3. If satisfied, produce the final plan using [plan-template.md](plan-template.md).
-4. Keep the final plan implementation-oriented and concrete.
+Цель: обозначить целевой результат.
 
-## Plan File Metadata
+Нужно покрыть:
+- идеальный конечный результат
+- конкретные пользовательские или системные сценарии
+- что должно стать возможным после изменения
 
-When writing a Cursor `.plan.md` file, include frontmatter in this shape:
+Критерии выхода:
+- зафиксирован хотя бы один конкретный сценарий успеха
+- успех описан через поведение, а не только через намерение
 
+#### 3. Рамки задачи
+
+Цель: явно зафиксировать границы.
+
+Нужно зафиксировать дословно:
+- что мы явно не делаем в рамках этой задачи
+
+Также нужно покрыть:
+- что входит в рамки задачи
+- что намеренно оставляем за рамками
+
+Критерии выхода:
+- видно и что входит в задачу, и что не входит
+
+#### 4. Шаги реализации
+
+Цель: детально зафиксировать планируемые изменения
+
+Нужно покрыть:
+- все действия необходимые при выполнении плана
+
+Каждый шаг заполняется в формате:
+- где меняем
+- что меняем
+- зачем это делаем
+
+Пример шаблона шагов:
+```
+## Шаг 1
+- Где меняем:
+- Что меняем:
+- Зачем это делаем:
+
+## Шаг 2
+- Где меняем:
+- Что меняем:
+- Зачем это делаем:
+```
+
+Правила формирования шагов:
+- **УПОРЯДОЧИВАЙ** шаги в практической последовательности выполнения.
+- **РАЗБИВАЙ** крупные изменения на отдельные шаги.
+- **НЕ УКАЗЫВАЙ** области, которые вы не можете обосновать.
+- **НЕ ОБЪЕДИНЯЙ** несвязанные изменения в один пункт.
+
+#### 5. Критерии приемки и проверка
+
+Цель: зафиксировать измеримое завершение работы.
+
+Нужно зафиксировать дословно:
+- измеримые условия приемки
+
+Также нужно покрыть:
+- как будет проверяться результат
+- какие сценарии должны проходить
+
+Критерии выхода:
+- критерии приемки можно проверить
+- способ проверки назван или помечен как неизвестный
+
+### TODOs
+
+**ОБЯЗАТЕЛЬНО** для каждого шага реализации в файле плана, в самом начале файла плана в frontmatter , нужно заполнить парамтер `todos` по шаблону:
 ```yaml
 ---
-name: short-kebab-case-name
-overview: One concise sentence summarizing the plan.
 todos:
   - id: stable-kebab-case-id
     content: Short actionable task description
@@ -98,64 +158,4 @@ todos:
 ---
 ```
 
-Rules:
-
-- `todos` must be populated from `Шаги реализации`, not left as `[]`.
-- Create at least one todo for each implementation step.
-- Use short stable `id` values in kebab-case.
-- Write `content` as an actionable task, not as an essay.
-- Default todo `status` to `pending` for a new plan unless the user explicitly asks for another state.
-- Keep `overview` concise and aligned with `Целевой результат`.
-- Do not add `isProject`; Cursor decides it.
-- Preserve existing frontmatter fields if the plan file already contains them and they do not conflict with the user's request.
-- Emit this frontmatter only once as the file header.
-- After the closing `---`, start the markdown body immediately with the title or the first section.
-- Never duplicate `name`, `overview`, or `todos` inside the markdown body.
-
-## Section Rules
-
-### Проблема и контекст
-
-- State what is wrong or what needs to appear.
-- Include only relevant background for understanding the task.
-- Do not drift into solution details here.
-
-### Целевой результат
-
-- Describe the end state in observable terms.
-- Prefer user-visible, API-visible, or system-visible outcomes.
-
-### Рамки задачи
-
-- Explicitly separate what is included from what is not.
-- If the boundary is unclear, ask before planning.
-
-### Шаги реализации
-
-For each step, always include:
-
-- `Где меняем`
-- `Что меняем`
-- `Зачем это делаем`
-
-Rules for steps:
-
-- Order steps in a practical execution sequence.
-- Split large changes into separate steps.
-- Do not mention areas you cannot justify.
-- Do not collapse unrelated changes into one bullet.
-- Mirror each implementation step into at least one frontmatter todo.
-- Keep todo wording shorter than the corresponding step details.
-
-### Критерии приемки
-
-- Make them verifiable.
-- Tie them to behavior, data, API responses, UI states, tests, or explicit checks.
-- If verification method is unknown, ask before planning.
-
-## Output Style
-
-- Use the exact section order from the template.
-- Keep wording concise, specific, and operational.
-- Avoid filler, motivational text, and repeated caveats.
-- Do not add extra sections unless the user explicitly asks for them.
+**НЕ ПЕРЕПИСЫВАЙ** неглядя этот блок, сначала проанализируй есть ли он уже, и если есть то актуализируй согласно плана
