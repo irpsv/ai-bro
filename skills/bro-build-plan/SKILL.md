@@ -1,7 +1,6 @@
 ---
 name: bro-build-plan
-description: Выполняет сборку плана через изолированных субагентов developer и reviewer. Используй, когда нужно реализовать `.plan.md` или markdown-план пошагово, с изоляцией контекста, написанием кода и ревью.
-disable-model-invocation: true
+description: Use for build plan / implementation plan / "реализуй план" / "бери план в работу"
 ---
 
 # bro-build-plan
