@@ -1,6 +1,6 @@
 ---
 name: bro-give-me-plan
-description: Use for plan mode / «сделай план» / implementation plan—structured delivery plan only (template in body), no code. Not for implementing fixes, writing code, or reviews unless the user explicitly wants a plan first.
+description: Use for plan mode / «сделай план» / «обнови план» / «переделай план» / «доработай план» / «исправь план» / «скорректируй план» / revising, amending, or replacing an existing implementation plan—structured delivery plan only (template in body), no code. Not for implementing fixes, writing code, or reviews unless the user explicitly wants a plan first.
 ---
 
 # Bro Give Me Plan
