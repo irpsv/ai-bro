@@ -1,6 +1,6 @@
 ---
 name: investigator
-model: composer-2
+model: composer-2[fast=false]
 description: READONLY расследование багов, регрессий и нестабильного поведения до уровня root cause. Используй через оркестратор `bro-investigate-bug`, когда нужно собрать доказательства и проверить гипотезы до планирования или фикса — без правок кода и без составления implementation plan.
 ---
 
