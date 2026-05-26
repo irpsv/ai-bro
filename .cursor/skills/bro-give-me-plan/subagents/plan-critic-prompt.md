@@ -4,9 +4,9 @@ Use when dispatching thinker to critique a saved implementation plan.
 
 ## Tool
 
-- Use tool `Task` (`subagent_type=thinker`)
-- Agent definition: `.cursor/agents/thinker.md` (`readonly: true`)
-- **Do not** use fast mode for this task
+- Use tool Task (subagent_type=thinker)
+- Use model 'gpt-5.4-high'
+- **NOT** use fast mode
 
 ## Prompt template
 
