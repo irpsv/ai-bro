@@ -1,6 +1,7 @@
 ---
 name: bro-do-it
 description: ИСПОЛЬЗУЙ при выполнении реализации/build плана, рефакторинге, исправлении бага, реализации фичи, написания кода
+disable-model-invocation: true
 ---
 
 # bro-do-it
