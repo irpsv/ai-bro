@@ -2,10 +2,10 @@
 stages:
   - name: "Этап 1"
     path: <stage1-path-to-file.md>
-    status: completed
+    status: wait
   - name: "Этап 2"
     path: <stage2-path-to-file.md>
-    status: progress
+    status: wait
   - name: "Этап 3"
     path: <stage1-path-to-file.md>
     status: wait
