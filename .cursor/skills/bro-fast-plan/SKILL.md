@@ -1,6 +1,6 @@
 ---
 name: bro-fast-plan
-description: ИСПОЛЬЗУЙ для plan mode, построения плана, «сделай план», «обнови план», «переделай план», «доработай план», «исправь план», «скорректируй план», revising, amending, or replacing an existing implementation plan—structured delivery plan only.
+disable-model-invocation: true
 ---
 
 # Bro Fast Plan
