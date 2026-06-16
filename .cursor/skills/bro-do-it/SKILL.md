@@ -19,10 +19,12 @@ disable-model-invocation: true
 ## Субагенты
 
 * **developer** — выполняет реализацию поставленной задачи.
-  * Промпт: [developer-prompt](./subagents/developer-prompt.md)
+  * prompt: [developer-prompt](./subagents/developer-prompt.md)
+  * model: "composer". Если недоступно, то используй "codex". Если недоступено, то "sonnet". Используй простую по уровню модель ориентированную на написание кода.
   * Подставь сформированный workflow task payload вместо `<задача>` в промпте
 * **reviewer** — выполняет ревью выполненной реализации.
-  * Промпт: [reviewer-prompt](./subagents/reviewer-prompt.md)
+  * prompt: [reviewer-prompt](./subagents/reviewer-prompt.md)
+  * model: "codex". Если недоступно, то используй "sonnet".  Модель должна отличаться от той, что была у developer. Используй среднюю по уровню модель.
   * Подставь тот же task payload вместо `<задача>` в промпте
 
 ## Анти-паттерны (нарушение = эскалация)
