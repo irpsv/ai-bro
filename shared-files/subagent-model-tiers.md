@@ -6,9 +6,10 @@
 ## Общие правила
 
 1. Для каждого запуска субагента сначала определи тир по типу работы, затем выбери семейство модели внутри этого тира.
-2. Если работаешь в Cursor и нужен тир `simple` или `coding`, **предпочитай** `cursor/composer`.
-3. Если выбранное семейство недоступно в текущем harness, возьми совместимое семейство из того же тира.
-4. Не повышай тир, если нет доступной модели. Используй либо **auto** режим, либо текущую **inherit** модель.
+2. Семейства моделей внутри каждого тира перечислены в порядке приоритета. Всегда выбирай первое доступное семейство из списка выбранного тира.
+3. Глобальный приоритет вендоров: `cursor` -> `openai` -> `anthropic` -> `google`.
+4. Если более приоритетное семейство недоступно в текущем harness, переходи к следующему семейству по списку в рамках того же тира.
+5. Не повышай тир, если нет доступной модели. Если ни одно семейство выбранного тира недоступно, используй либо **auto** режим, либо текущую **inherit** модель.
 
 ## simple
 
@@ -21,11 +22,11 @@
 
 Подходящие семейства моделей:
 
-- `cursor/composer`
-- `openai/gpt-mini`
-- `openai/gpt-nano`
-- `anthropic/claude-haiku`
-- `google/gemini-flash`
+1. `cursor/composer`
+2. `openai/gpt-mini`
+3. `openai/gpt-nano`
+4. `anthropic/claude-haiku`
+5. `google/gemini-flash`
 
 ## coding
 
@@ -39,10 +40,10 @@
 
 Подходящие семейства моделей:
 
-- `cursor/composer`
-- `openai/codex`
-- `anthropic/claude-sonnet`
-- `google/gemini-pro`
+1. `cursor/composer`
+2. `openai/codex`
+3. `anthropic/claude-sonnet`
+4. `google/gemini-pro`
 
 ## code-reviewer
 
@@ -55,9 +56,10 @@
 
 Подходящие семейства моделей:
 
-- `openai/codex`
-- `anthropic/claude-sonnet`
-- `google/gemini-pro`
+1. `openai/codex`
+2. `openai/gpt`
+3. `anthropic/claude-sonnet`
+4. `anthropic/claude-opus`
 
 ## analytics
 
@@ -71,6 +73,5 @@
 
 Подходящие семейства моделей:
 
-- `openai/gpt`
-- `anthropic/claude-opus`
-- `google/gemini-pro`
+1. `openai/gpt`
+2. `anthropic/claude-opus`
