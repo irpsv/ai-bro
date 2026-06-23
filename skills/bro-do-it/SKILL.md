@@ -26,7 +26,7 @@ disable-model-invocation: true
   * Подставь сформированный workflow task payload вместо `<задача>` в промпте
 * **reviewer** — выполняет ревью выполненной реализации.
   * prompt: [reviewer-prompt](./subagents/reviewer-prompt.md)
-  * model: [coding](./references/subagent-model-tiers.md#coding)
+  * model: [code-reviewer](./references/subagent-model-tiers.md#code-reviewer)
   * Подставь тот же task payload вместо `<задача>` в промпте
 
 ## Анти-паттерны (нарушение = эскалация)
