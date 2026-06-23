@@ -68,12 +68,16 @@ frontmatter **ДОЛЖЕН** заполняться согласно [прави
 
 ## Субагенты
 
+Правила выбора тира и семейства модели — [subagent-model-tiers](../subagent-model-tiers.md).
+
 ### thinker
 
-**READONLY** субагент для критики и проведения ревью артефактов плана и этапов.
+**READONLY** субагент для критики и проведения ревью артефакта плана.
 **ДОЛЖЕН** скептически смотреть на план и искать его изъяны.
-**ДОЛЖЕН** использовать "умные" модели с высоким уровнем размышления (premium, gpt, opus).
-**ОБЯЗАТЕЛЬНО** при вызове субагента в `Task` — использовать промпт [big-plan-critic-prompt.md](../../subagents/big-plan-critic-prompt.md)
+**ОБЯЗАТЕЛЬНО** при вызове субагента в `Task` — использовать промпт [big-plan-critic-prompt.md](../../subagents/big-plan-critic-prompt.md).
+* model: [analytics](../subagent-model-tiers.md#analytics)
+
+Перед каждым запуском thinker определи тир и семейство модели по [subagent-model-tiers](../subagent-model-tiers.md).
 
 ## Stage план
 
