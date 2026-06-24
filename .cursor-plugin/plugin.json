@@ -1,0 +1,20 @@
+{
+  "name": "ai-bro",
+  "version": "1.0.0",
+  "description": "AI bro is a set of skills that makes working with agents more convenient, simpler, and more effective. It does not impose its own vision of the right patterns and methodologies—it adapts to your realities and helps you work within them.",
+  "author": {
+    "name": "Ilya Rupasov"
+  },
+  "homepage": "https://github.com/irpsv/ai-bro",
+  "repository": "https://github.com/irpsv/ai-bro",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "planning",
+    "debug",
+    "develop",
+    "agent"
+  ],
+  "logo": "assets/ai-bro-logo-small.png",
+  "skills": "./skills/"
+}
