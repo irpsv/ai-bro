@@ -1,6 +1,6 @@
 ---
 name: bro-debug
-description: ИСПОЛЬЗУЙ если нужно провести расследование бага/регрессии/нестабильного поведения до root cause. Use when the user asks to investigate, reproduce, find root cause, explain why something breaks, triage a regression, or debug.
+description: Помогает дебажить проблему и найти корневой кейс бага. ИСПОЛЬЗУЙ если нужно провести расследование бага/регрессии/нестабильного поведения до root cause. Use when the user asks to investigate, reproduce, find root cause, explain why something breaks, triage a regression, or debug.
 ---
 
 # bro-debug

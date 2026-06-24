@@ -1,5 +1,6 @@
 ---
 name: bro-give-me-plan
+description: Помогает составить план реализации
 disable-model-invocation: true
 ---
 
