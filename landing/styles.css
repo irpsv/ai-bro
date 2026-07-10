@@ -1,0 +1,203 @@
+:root {
+  --bg: #ffffff;
+  --bg-soft: #f5f8ff;
+  --text: #13213a;
+  --muted: #4f5d75;
+  --primary: #1967d2;
+  --primary-soft: #eaf2ff;
+  --border: #d7e4ff;
+  --shadow: 0 10px 30px rgba(25, 103, 210, 0.08);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+}
+
+.container {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar__inner {
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.github-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  transition: background-color 0.2s ease;
+}
+
+.github-link:hover,
+.github-link:focus-visible {
+  background: var(--primary-soft);
+}
+
+.hero {
+  background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
+  padding: 5rem 0 4rem;
+  text-align: center;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  line-height: 1.1;
+  color: var(--primary);
+}
+
+.hero p {
+  margin: 1rem 0 0;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  color: var(--muted);
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+.section--alt {
+  background: var(--bg-soft);
+}
+
+h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+}
+
+.lead {
+  margin: 0;
+  max-width: 900px;
+  color: var(--muted);
+}
+
+.shared-step {
+  margin-top: 1.5rem;
+}
+
+.columns {
+  margin-top: 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.install-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.2rem 1.2rem 1.1rem;
+  box-shadow: var(--shadow);
+}
+
+.card h3 {
+  margin: 0 0 0.85rem;
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+ol {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+}
+
+li + li {
+  margin-top: 0.8rem;
+}
+
+code {
+  background: var(--primary-soft);
+  padding: 0.1rem 0.4rem;
+  border-radius: 6px;
+  color: var(--primary);
+}
+
+.footer {
+  border-top: 1px solid var(--border);
+  background: #fff;
+}
+
+.footer p {
+  margin: 0;
+  padding: 1.4rem 0 1.7rem;
+  text-align: center;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding: 3rem 0;
+  }
+
+  .columns,
+  .install-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: min(1120px, calc(100% - 1.25rem));
+  }
+
+  .topbar__inner {
+    min-height: 60px;
+  }
+
+  .hero {
+    padding: 3.4rem 0 2.8rem;
+  }
+
+  .card {
+    border-radius: 14px;
+    padding: 1rem 0.95rem;
+  }
+}
