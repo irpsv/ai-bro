@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="ai-bro — набор скиллов для удобной работы с AI-агентами: от идеи до реализации и memory bank." />
+  <title>ai-bro — твой братан в AI вопросах</title>
+  <link rel="icon" href="./assets/ai-bro-logo-small.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="ai-bro — наверх">
+      <img src="./assets/ai-bro-logo-small.png" alt="" width="32" height="32" />
+      <span>ai-bro</span>
+    </a>
+    <a class="github-link" href="https://github.com/irpsv/ai-bro" target="_blank" rel="noopener noreferrer">
+      GitHub
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor">
+        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+      </svg>
+    </a>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <p class="hero-brand">ai-bro</p>
+        <h1 id="hero-title">твой братан в AI вопросах</h1>
+        <p class="hero-lead">
+          Набор скиллов для работы с AI-агентами: думаем вместе, планируем или вайбкодим,
+          реализуем и запоминаем — без навязанных методологий, под ваши реалии.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#install">Установить</a>
+          <a class="btn btn-ghost" href="#flows">Как работает</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="flows" id="flows" aria-labelledby="flows-title">
+      <div class="section-head">
+        <h2 id="flows-title">Варианты работы</h2>
+        <p>Два пути к результату: быстрый вайбкод или осознанная разработка с планом. Общие шаги — общие для обоих.</p>
+      </div>
+
+      <div class="flow-board">
+        <div class="col-labels" aria-hidden="true">
+          <span class="col-label">Вайбкодер</span>
+          <span class="col-label">Разработка</span>
+        </div>
+
+        <!-- Shared: bro-on-board -->
+        <article class="step step-shared reveal">
+          <div class="step-meta">
+            <span class="step-num">1</span>
+            <code class="step-name">bro-on-board</code>
+            <span class="step-badge">оба пути</span>
+          </div>
+          <h3>Знакомимся</h3>
+          <p>Первый контакт с набором: карта скиллов и типовой флоу. При необходимости инициализирует memory bank проекта, чтобы агент сразу понимал контекст.</p>
+        </article>
+
+        <!-- Shared: bro-think-with-me -->
+        <article class="step step-shared reveal">
+          <div class="step-meta">
+            <span class="step-num">2</span>
+            <code class="step-name">bro-think-with-me</code>
+            <span class="step-badge">оба пути</span>
+          </div>
+          <h3>Думаем вместе</h3>
+          <p>Проясняем мысль, проверяем идею и выбираем подход. Скилл ведёт диалог в режиме чтения и помогает сузить неопределённость до понятного следующего шага.</p>
+        </article>
+
+        <div class="flow-split" role="group" aria-label="Развилка: вайбкод или план">
+          <!-- Left: vibe -->
+          <article class="step step-left reveal">
+            <div class="step-meta">
+              <span class="step-num">3</span>
+              <code class="step-name">bro-vibe-code</code>
+            </div>
+            <h3>Делаем без плана</h3>
+            <p>Для небольшой или некритичной задачи, которую можно отдать агенту. Либо план не нужен — технические детали не важны. Скилл ведёт автономную реализацию с этапами проверки и ревью.</p>
+          </article>
+
+          <!-- Right: plan + do -->
+          <div class="step-stack">
+            <article class="step step-right reveal">
+              <div class="step-meta">
+                <span class="step-num">3</span>
+                <code class="step-name">bro-give-me-plan</code>
+              </div>
+              <h3>Составляем план</h3>
+              <p>Формируем план под масштаб задачи: от списка шагов прямо в чате до нескольких артефактов на этапы реализации. Без кода — только однозначные действия.</p>
+            </article>
+            <article class="step step-right reveal">
+              <div class="step-meta">
+                <span class="step-num">4</span>
+                <code class="step-name">bro-do-it</code>
+              </div>
+              <h3>Реализуем план</h3>
+              <p>Воплощаем план и актуализируем артефакты, если они есть. Агенты работают полуавтономно и эскалируют вопросы человеку, когда без решения не обойтись.</p>
+            </article>
+          </div>
+        </div>
+
+        <!-- Shared: bro-remember-it -->
+        <article class="step step-shared reveal">
+          <div class="step-meta">
+            <span class="step-num">5</span>
+            <code class="step-name">bro-remember-it</code>
+            <span class="step-badge">оба пути</span>
+          </div>
+          <h3>Запоминаем</h3>
+          <p>Пополняем memory bank результатами работы: контекст, фичи, устойчивые знания. В следующих сессиях агент быстрее и точнее ориентируется в проекте.</p>
+        </article>
+
+        <!-- Loop -->
+        <article class="step step-loop reveal">
+          <div class="step-meta">
+            <span class="step-num">↻</span>
+            <code class="step-name">Go to</code>
+          </div>
+          <h3>Следующая фича</h3>
+          <p>Возвращаемся к шагу&nbsp;1 и берём следующую задачу. Цикл замыкается — бро снова рядом.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="install" id="install" aria-labelledby="install-title">
+      <div class="section-head">
+        <h2 id="install-title">Установка</h2>
+        <p>Два способа подключить скиллы — выберите удобный.</p>
+      </div>
+
+      <div class="install-grid">
+        <article class="install-card reveal">
+          <h3>Через npx skills</h3>
+          <p>Привычный путь для тех, кто ставит скиллы из терминала:</p>
+          <pre class="code-block"><code>npx skills add irpsv/ai-bro -g</code></pre>
+          <button type="button" class="copy-btn" data-copy="npx skills add irpsv/ai-bro -g">Скопировать</button>
+        </article>
+        <article class="install-card reveal">
+          <h3>Через чат с агентом</h3>
+          <p>Просто попросите своего агента установить набор:</p>
+          <pre class="code-block"><code>Установи скиллы из репозитория
+https://github.com/irpsv/ai-bro</code></pre>
+          <button type="button" class="copy-btn" data-copy="Установи скиллы из репозитория https://github.com/irpsv/ai-bro">Скопировать</button>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-slogan">Скажи что сделать — бро поможет!</p>
+    <a href="https://github.com/irpsv/ai-bro" target="_blank" rel="noopener noreferrer">github.com/irpsv/ai-bro</a>
+  </footer>
+
+  <script>
+    (function () {
+      var reveals = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+        );
+        reveals.forEach(function (el) {
+          io.observe(el);
+        });
+      } else {
+        reveals.forEach(function (el) {
+          el.classList.add("is-visible");
+        });
+      }
+
+      document.querySelectorAll(".copy-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var text = btn.getAttribute("data-copy") || "";
+          var done = function () {
+            var prev = btn.textContent;
+            btn.textContent = "Скопировано";
+            btn.classList.add("is-copied");
+            setTimeout(function () {
+              btn.textContent = prev;
+              btn.classList.remove("is-copied");
+            }, 1600);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(done).catch(function () {
+              fallbackCopy(text, done);
+            });
+          } else {
+            fallbackCopy(text, done);
+          }
+        });
+      });
+
+      function fallbackCopy(text, done) {
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "absolute";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand("copy");
+          done();
+        } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    })();
+  </script>
+</body>
+</html>
