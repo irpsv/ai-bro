@@ -956,19 +956,6 @@ footer {
   font-weight: 800;
 }
 
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity 600ms ease,
-    transform 600ms ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 :focus-visible {
   outline: 3px solid rgba(23, 104, 229, 0.35);
   outline-offset: 3px;
@@ -986,10 +973,6 @@ footer {
     transition-duration: 0.01ms !important;
   }
 
-  .reveal {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 @media (max-width: 900px) {
