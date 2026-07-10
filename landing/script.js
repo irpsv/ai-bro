@@ -1,9 +1,12 @@
 const copyButtons = document.querySelectorAll("[data-copy]");
 
 copyButtons.forEach((button) => {
+  const label = button.querySelector(".copy-label");
+  const originalLabel = label.textContent;
+  let resetTimeout;
+
   button.addEventListener("click", async () => {
-    const label = button.querySelector(".copy-label");
-    const originalLabel = label.textContent;
+    window.clearTimeout(resetTimeout);
 
     try {
       await navigator.clipboard.writeText(button.dataset.copy);
@@ -13,7 +16,7 @@ copyButtons.forEach((button) => {
       label.textContent = "Выделите текст";
     }
 
-    window.setTimeout(() => {
+    resetTimeout = window.setTimeout(() => {
       label.textContent = originalLabel;
       button.classList.remove("copied");
     }, 1800);
