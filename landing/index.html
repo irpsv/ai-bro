@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="ai-bro — набор скиллов, который помогает работать с AI-агентами: от идеи и онбординга до реализации и базы знаний."
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <meta property="og:title" content="ai-bro — твой братан в AI вопросах" />
+    <meta
+      property="og:description"
+      content="Понятный процесс работы с AI-агентами для вайбкодинга и системной разработки."
+    />
+    <title>ai-bro — твой братан в AI вопросах</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="ai-bro — на главную">
+        <span class="brand-mark" aria-hidden="true">ab</span>
+        <span>ai-bro</span>
+      </a>
+      <a
+        class="github-link"
+        href="https://github.com/irpsv/ai-bro"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path
+            d="M12 .7a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2.23c-3.22.7-3.9-1.37-3.9-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.73.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.39.97.1-.75.4-1.27.74-1.56-2.57-.29-5.27-1.28-5.27-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.16 1.18a10.97 10.97 0 0 1 5.75 0c2.2-1.49 3.16-1.18 3.16-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.71 5.38-5.29 5.67.42.36.79 1.06.79 2.14v3.18c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z"
+          />
+        </svg>
+        <span>GitHub</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </header>
+
+    <main id="top">
+      <section class="hero section-shell" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow"><span></span> Набор скиллов для AI-агентов</div>
+          <h1 id="hero-title">ai-bro<span class="accent-dot">.</span></h1>
+          <p class="hero-subtitle">твой братан в AI вопросах</p>
+          <p class="hero-description">
+            Понятный рабочий процесс для тех, кто хочет быстро воплощать идеи, и
+            для тех, кому важны план, контроль и качество разработки.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#workflows">Как это работает</a>
+            <a class="button button-secondary" href="#install">Установить</a>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="Диалог с ai-bro">
+          <div class="orb orb-one"></div>
+          <div class="orb orb-two"></div>
+          <div class="chat-card">
+            <div class="chat-header">
+              <div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+              <span>ai-bro</span>
+              <span class="online-dot" aria-label="онлайн"></span>
+            </div>
+            <div class="message message-user">
+              <span>Хочу сделать новую фичу. С чего начать?</span>
+            </div>
+            <div class="message message-bro">
+              <span class="mini-avatar" aria-hidden="true">ab</span>
+              <div>
+                <strong>Давай разберёмся, бро.</strong>
+                <p>Проясним идею, выберем маршрут и доведём задачу до результата.</p>
+              </div>
+            </div>
+            <div class="skill-pills" aria-hidden="true">
+              <span>think</span>
+              <span>plan</span>
+              <span>do</span>
+              <span>remember</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="intro section-shell" aria-labelledby="about-title">
+        <div>
+          <span class="section-label">Что такое ai-bro</span>
+          <h2 id="about-title">Не ещё один AI.<br />А способ работать с ним.</h2>
+        </div>
+        <div class="intro-text">
+          <p>
+            <strong>ai-bro</strong> — это набор скиллов, которые дают AI-агенту
+            понятные роли и процессы для каждого этапа работы над проектом.
+          </p>
+          <p>
+            Скиллы помогают агенту не бросаться сразу писать код: сначала понять
+            контекст, вместе обдумать задачу, выбрать подходящий уровень контроля,
+            проверить результат и сохранить полезные знания для следующей сессии.
+          </p>
+        </div>
+      </section>
+
+      <section class="workflows" id="workflows" aria-labelledby="workflows-title">
+        <div class="section-shell">
+          <div class="section-heading">
+            <span class="section-label">Варианты работы</span>
+            <h2 id="workflows-title">Выбери свой маршрут</h2>
+            <p>
+              Общий старт и общая память, но разный уровень вовлечения в реализацию.
+            </p>
+          </div>
+
+          <div class="common-step common-step-top reveal">
+            <div class="step-number">01</div>
+            <div class="step-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 19V8l8-4 8 4v11M8 19v-7h8v7M2 19h20" /></svg>
+            </div>
+            <div class="step-copy">
+              <span class="step-kicker">Общий старт</span>
+              <h3>bro-on-board</h3>
+              <p>
+                Знакомит с набором и проектом, показывает карту скиллов и при
+                необходимости создаёт memory bank. Это быстрый способ дать агенту
+                правильную точку входа.
+              </p>
+            </div>
+          </div>
+
+          <div class="flow-connector" aria-hidden="true"><span></span></div>
+
+          <div class="common-step reveal">
+            <div class="step-number">02</div>
+            <div class="step-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M8.5 15.5A7 7 0 1 1 15.5 15.5c-1 .7-1.5 1.3-1.5 2.5h-4c0-1.2-.5-1.8-1.5-2.5Z" /></svg>
+            </div>
+            <div class="step-copy">
+              <span class="step-kicker">Общее обсуждение</span>
+              <h3>bro-think-with-me</h3>
+              <p>
+                Помогает прояснить сырую идею, проверить предположения и выбрать
+                подход. Нужен, чтобы убрать неопределённость до начала работы.
+              </p>
+            </div>
+          </div>
+
+          <div class="split-indicator" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+
+          <div class="routes">
+            <article class="route route-vibe">
+              <header class="route-header">
+                <span class="route-tag">Маршрут 1</span>
+                <div class="route-title">
+                  <span class="route-emoji" aria-hidden="true">⚡</span>
+                  <div>
+                    <h3>Для вайбкодера</h3>
+                    <p>Меньше технических деталей, больше автономности</p>
+                  </div>
+                </div>
+              </header>
+              <div class="route-body">
+                <div class="route-step reveal">
+                  <span class="route-number">03</span>
+                  <div>
+                    <h4>bro-vibe-code</h4>
+                    <p>
+                      Подходит для небольшой или некритичной задачи, которую можно
+                      доверить AI, либо когда технический план вам не нужен. Агент
+                      автономно проходит реализацию, самопроверку и независимое ревью.
+                    </p>
+                  </div>
+                </div>
+                <div class="route-note">
+                  <span aria-hidden="true">✓</span>
+                  Вы задаёте результат — бро разбирается с реализацией
+                </div>
+              </div>
+            </article>
+
+            <article class="route route-dev">
+              <header class="route-header">
+                <span class="route-tag">Маршрут 2</span>
+                <div class="route-title">
+                  <span class="route-emoji" aria-hidden="true">⌘</span>
+                  <div>
+                    <h3>Для разработки</h3>
+                    <p>Прозрачный план и контроль ключевых решений</p>
+                  </div>
+                </div>
+              </header>
+              <div class="route-body">
+                <div class="route-step reveal">
+                  <span class="route-number">03</span>
+                  <div>
+                    <h4>bro-give-me-plan</h4>
+                    <p>
+                      Составляет план решения под масштаб задачи: от короткого списка
+                      шагов в чате до набора артефактов для нескольких этапов.
+                      Помогает заранее согласовать путь и критерии результата.
+                    </p>
+                  </div>
+                </div>
+                <div class="route-line" aria-hidden="true"></div>
+                <div class="route-step reveal">
+                  <span class="route-number">04</span>
+                  <div>
+                    <h4>bro-do-it</h4>
+                    <p>
+                      Реализует согласованный план и актуализирует его артефакты.
+                      Агенты работают полуавтономно, проводят ревью и передают
+                      человеку только вопросы, без которых безопасно продолжить нельзя.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="merge-indicator" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+
+          <div class="common-step reveal">
+            <div class="step-number">05</div>
+            <div class="step-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 5c4.4 0 8 1.3 8 3s-3.6 3-8 3-8-1.3-8-3 3.6-3 8-3ZM4 8v4c0 1.7 3.6 3 8 3s8-1.3 8-3V8M4 12v4c0 1.7 3.6 3 8 3s8-1.3 8-3v-4" /></svg>
+            </div>
+            <div class="step-copy">
+              <span class="step-kicker">Общая память</span>
+              <h3>bro-remember-it</h3>
+              <p>
+                Пополняет memory bank устойчивыми знаниями, полученными в работе.
+                Благодаря этому в следующих сессиях агент быстрее и точнее
+                ориентируется в проекте.
+              </p>
+            </div>
+          </div>
+
+          <div class="loop-card reveal">
+            <div class="loop-icon" aria-hidden="true">↻</div>
+            <div>
+              <span>Go to 01</span>
+              <h3>Следующая фича уже ждёт 😉</h3>
+            </div>
+            <a href="#workflows" aria-label="Вернуться к первому шагу">Начать снова ↑</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="install section-shell" id="install" aria-labelledby="install-title">
+        <div class="install-heading">
+          <span class="section-label">Установка</span>
+          <h2 id="install-title">Подключить бро — одна команда</h2>
+          <p>Выберите привычный способ. Скиллы работают с популярными AI-агентами и оболочками.</p>
+        </div>
+
+        <div class="install-grid">
+          <article class="install-card install-terminal">
+            <div class="install-card-top">
+              <div>
+                <span class="install-index">01</span>
+                <h3>Через npx skills</h3>
+              </div>
+              <span class="recommended">Рекомендуем</span>
+            </div>
+            <p>Запустите команду в терминале — набор установится глобально.</p>
+            <div class="code-block">
+              <code><span>npx</span> skills add irpsv/ai-bro -g</code>
+              <button class="copy-button" type="button" data-copy="npx skills add irpsv/ai-bro -g">
+                <span class="copy-label">Копировать</span>
+              </button>
+            </div>
+          </article>
+
+          <article class="install-card">
+            <div class="install-card-top">
+              <div>
+                <span class="install-index">02</span>
+                <h3>Через чат с агентом</h3>
+              </div>
+              <span class="chat-badge" aria-hidden="true">✦</span>
+            </div>
+            <p>Просто попросите вашего AI-агента подключить набор из репозитория.</p>
+            <div class="prompt-block">
+              <span>Установи скиллы из репозитория https://github.com/irpsv/ai-bro</span>
+              <button
+                class="copy-button copy-button-light"
+                type="button"
+                data-copy="Установи скиллы из репозитория https://github.com/irpsv/ai-bro"
+              >
+                <span class="copy-label">Копировать</span>
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="cta">
+        <div class="section-shell">
+          <span class="cta-kicker">Ну что, погнали?</span>
+          <h2>Скажи что сделать —<br /><span>бро поможет!</span></h2>
+          <a
+            class="button button-white"
+            href="https://github.com/irpsv/ai-bro"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Открыть ai-bro на GitHub <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="section-shell footer-inner">
+        <a class="brand brand-footer" href="#top">
+          <span class="brand-mark" aria-hidden="true">ab</span>
+          <span>ai-bro</span>
+        </a>
+        <p>Твой братан в AI вопросах.</p>
+        <a href="https://github.com/irpsv/ai-bro" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </div>
+    </footer>
+  </body>
+</html>
