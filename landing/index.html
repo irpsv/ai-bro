@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="ai-bro — набор скиллов для работы с AI-агентами. Думайте, планируйте и реализуйте вместе со своим бро." />
+  <meta name="theme-color" content="#1d4ed8" />
+  <title>ai-bro — твой бро для работы с AI-агентами</title>
+  <link rel="icon" href="./assets/ai-bro-logo-small.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">К содержимому</a>
+
+  <header class="topbar">
+    <a class="brand" href="#top">
+      <img src="./assets/ai-bro-logo-small.png" alt="" width="32" height="32" />
+      <span>ai-bro</span>
+    </a>
+    <nav class="topnav" aria-label="Основная навигация">
+      <a href="#about">О проекте</a>
+      <a href="#flows">Флоу</a>
+      <a href="#install">Установка</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a class="topbar-cta" href="https://github.com/irpsv/ai-bro" target="_blank" rel="noopener noreferrer">Репозиторий</a>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-brand">
+      <div class="hero-bg" aria-hidden="true">
+        <img src="./assets/banner.png" alt="" />
+      </div>
+      <div class="hero-veil" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <p class="hero-brand" id="hero-brand">ai-bro</p>
+        <h1 class="hero-title">Твой бро для работы с AI-агентами</h1>
+        <p class="hero-lead">
+          Набор скиллов, который подстраивается под ваш стиль: от вайбкодинга до разработки через планирование.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#install">Установить</a>
+          <a class="btn btn-secondary" href="#flows">Выбрать флоу</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-copy reveal">
+            <h2 id="about-title">Что такое ai-bro</h2>
+            <p>
+              Когда постигаешь что-то новое, проще делать это не в одиночку — со своим бро.
+              <strong>ai-bro</strong> — набор скиллов для популярных AI-harness и оболочек:
+              он делает работу с агентами понятнее, спокойнее и эффективнее.
+            </p>
+            <p>
+              Скиллы не навязывают «единственно верную» методологию. Они адаптируются
+              под ваши реалии и помогают работать в том режиме, который вам нужен сейчас.
+            </p>
+          </div>
+          <div class="about-points reveal" style="--delay: 0.12s">
+            <h3>Зачем нужны скиллы</h3>
+            <ul>
+              <li>
+                <span>Думать</span>
+                Прояснять мысль, проверять идею и выбирать подход до кода.
+              </li>
+              <li>
+                <span>Делать</span>
+                Переходить к реализации осознанно — с планом или без него.
+              </li>
+              <li>
+                <span>Помнить</span>
+                Сохранять устойчивые знания о проекте между сессиями.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="flows" id="flows" aria-labelledby="flows-title">
+      <div class="container">
+        <header class="section-head reveal">
+          <h2 id="flows-title">Два флоу под разные роли</h2>
+          <p>
+            Один набор — разные маршруты. Выберите путь под задачу и свой стиль работы.
+          </p>
+        </header>
+
+        <div class="flow-panels">
+          <article class="flow-panel vibe reveal" aria-labelledby="vibe-title">
+            <p class="flow-role">Вайбкодер</p>
+            <h3 id="vibe-title">Без планирования</h3>
+            <p class="flow-desc">
+              Идея уже ясна, хочется сразу получить результат. Планы и артефакты не нужны —
+              только обсуждение и автономная реализация.
+            </p>
+            <ol class="flow-steps">
+              <li>
+                <code>/bro-think-with-me</code>
+                <span>Проясняем мысль, сверяем идею и договариваемся, что должно измениться для пользователя.</span>
+              </li>
+              <li>
+                <code>/bro-vibe-code</code>
+                <span>Короткая сводка результата — и автономная реализация с проверкой и ревью, без отдельного плана.</span>
+              </li>
+            </ol>
+          </article>
+
+          <article class="flow-panel sdd reveal" style="--delay: 0.14s" aria-labelledby="sdd-title">
+            <p class="flow-role">Разработчик</p>
+            <h3 id="sdd-title">Через SDD и планирование</h3>
+            <p class="flow-desc">
+              Нужна предсказуемость: сначала ясный план, потом реализация и фиксация знаний
+              в memory bank проекта.
+            </p>
+            <ol class="flow-steps">
+              <li>
+                <code>/bro-think-with-me</code>
+                <span>Сужаем неопределённость и выбираем подход до составления плана.</span>
+              </li>
+              <li>
+                <code>/bro-give-me-plan</code>
+                <span>Собираем однозначный план без кода — от шагов в чате до многоэтапных артефактов.</span>
+              </li>
+              <li>
+                <code>/bro-do-it</code>
+                <span>Реализуем план через цикл разработки и обязательное ревью.</span>
+              </li>
+              <li>
+                <code>/bro-remember-it</code>
+                <span>Пополняем memory bank устойчивыми знаниями о проекте для следующих сессий.</span>
+              </li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="mechanics" id="mechanics" aria-labelledby="mechanics-title">
+      <div class="container">
+        <header class="section-head reveal">
+          <h2 id="mechanics-title">Как это работает</h2>
+          <p>
+            Задача раскладывается на понятные этапы. На каждом этапе помогает свой скилл —
+            вы вызываете только то, что нужно сейчас.
+          </p>
+        </header>
+
+        <ol class="stage-list reveal">
+          <li>
+            <strong>Знакомимся</strong>
+            <code>/bro-on-board</code>
+            <span>Карта скиллов и при необходимости инициализация memory bank.</span>
+          </li>
+          <li>
+            <strong>Думаем</strong>
+            <code>/bro-think-with-me</code>
+            <span>Совместное прояснение мысли и выбор следующего шага.</span>
+          </li>
+          <li>
+            <strong>Дебажим</strong>
+            <code>/bro-debug</code>
+            <span>Сбор фактов и поиск причины без прыжка сразу к фиксу.</span>
+          </li>
+          <li>
+            <strong>Планируем</strong>
+            <code>/bro-give-me-plan</code>
+            <span>Однозначный план реализации без кода.</span>
+          </li>
+          <li>
+            <strong>Делаем</strong>
+            <code>/bro-do-it</code> · <code>/bro-vibe-code</code>
+            <span>Реализация по плану или сразу после обсуждения.</span>
+          </li>
+          <li>
+            <strong>Запоминаем</strong>
+            <code>/bro-remember-it</code>
+            <span>Фиксация знаний в постоянном слое проекта.</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="install" id="install" aria-labelledby="install-title">
+      <div class="container narrow">
+        <header class="section-head reveal">
+          <h2 id="install-title">Установка</h2>
+          <p>Подключите набор одним из привычных способов.</p>
+        </header>
+
+        <div class="install-block reveal">
+          <p class="install-label">Через CLI</p>
+          <pre><code>npx skills add irpsv/ai-bro -g</code></pre>
+        </div>
+
+        <div class="install-block reveal" style="--delay: 0.1s">
+          <p class="install-label">Или попросите своего агента</p>
+          <pre><code>Установи скиллы из репозитория https://github.com/irpsv/ai-bro</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="contacts" id="contacts" aria-labelledby="contacts-title">
+      <div class="container narrow reveal">
+        <h2 id="contacts-title">Контакты</h2>
+        <p>Вопросы, идеи и вклад — через GitHub.</p>
+        <ul class="contact-list">
+          <li>
+            <a href="https://github.com/irpsv/ai-bro" target="_blank" rel="noopener noreferrer">
+              Репозиторий ai-bro
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/irpsv" target="_blank" rel="noopener noreferrer">
+              github.com/irpsv
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>ai-bro — скиллы для работы с AI-агентами</p>
+      <p>
+        <a href="https://github.com/irpsv/ai-bro" target="_blank" rel="noopener noreferrer">GitHub</a>
+        ·
+        <a href="https://github.com/irpsv" target="_blank" rel="noopener noreferrer">Автор</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var nodes = document.querySelectorAll(".reveal");
+      if (!("IntersectionObserver" in window) || !nodes.length) {
+        nodes.forEach(function (el) { el.classList.add("is-visible"); });
+        return;
+      }
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.16, rootMargin: "0px 0px -8% 0px" }
+      );
+      nodes.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+</body>
+</html>
