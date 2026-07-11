@@ -1,105 +1,8 @@
 (function () {
   "use strict";
 
-  var HERO_VARIANTS = {
-    A: "Меньше хаоса с AI-агентом — больше понятного результата",
-    B: "От идеи до рабочего кода — с AI-агентом по понятному сценарию"
-  };
-
-  var STORAGE_KEY = "aibro_hero_variant";
-  var events = [];
-
-  function track(name, props) {
-    var payload = Object.assign(
-      {
-        event: name,
-        ts: Date.now(),
-        path: location.pathname
-      },
-      props || {}
-    );
-
-    events.push(payload);
-    window.__aibroEvents = events;
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push(payload);
-
-    try {
-      window.dispatchEvent(new CustomEvent("aibro:analytics", { detail: payload }));
-    } catch (err) {
-      /* ignore */
-    }
-
-    if (window.plausible && typeof window.plausible === "function") {
-      try {
-        window.plausible(name, { props: props || {} });
-      } catch (err) {
-        /* ignore */
-      }
-    }
-  }
-
   function preferReducedMotion() {
     return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  }
-
-  function initReveal() {
-    var nodes = document.querySelectorAll(".reveal");
-    if (!nodes.length) return;
-
-    if (!("IntersectionObserver" in window) || preferReducedMotion()) {
-      nodes.forEach(function (el) {
-        el.classList.add("is-visible");
-      });
-      return;
-    }
-
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.14, rootMargin: "0px 0px -6% 0px" }
-    );
-
-    nodes.forEach(function (el) {
-      observer.observe(el);
-    });
-  }
-
-  function pickHeroVariant() {
-    var saved = null;
-    try {
-      saved = localStorage.getItem(STORAGE_KEY);
-    } catch (err) {
-      saved = null;
-    }
-
-    if (saved !== "A" && saved !== "B") {
-      saved = Math.random() < 0.5 ? "A" : "B";
-      try {
-        localStorage.setItem(STORAGE_KEY, saved);
-      } catch (err) {
-        /* ignore */
-      }
-    }
-
-    var title = document.getElementById("hero-title");
-    if (title) {
-      title.textContent = HERO_VARIANTS[saved];
-      title.setAttribute("data-ab-variant", saved);
-    }
-
-    document.title =
-      saved === "B"
-        ? "ai-bro — от идеи до кода по понятному сценарию"
-        : "ai-bro — меньше хаоса с AI-агентом, больше результата";
-
-    track("hero_variant", { variant: saved });
-    return saved;
   }
 
   function setCopiedState(button, ok) {
@@ -143,99 +46,111 @@
     document.querySelectorAll("[data-copy]").forEach(function (button) {
       button.addEventListener("click", function () {
         var text = button.getAttribute("data-copy") || "";
-        var trackName = button.getAttribute("data-track") || "copy_install";
         copyText(text)
           .then(function () {
             setCopiedState(button, true);
-            track(trackName, { ok: true, length: text.length });
           })
           .catch(function () {
             setCopiedState(button, false);
-            track(trackName, { ok: false });
           });
       });
     });
   }
 
-  function initClickTracking() {
-    document.querySelectorAll("[data-track]").forEach(function (el) {
-      if (el.hasAttribute("data-copy")) return;
-      el.addEventListener("click", function () {
-        track(el.getAttribute("data-track") || "click", {
-          href: el.getAttribute("href") || null
-        });
+  function initRoleTabs() {
+    var tabs = Array.prototype.slice.call(document.querySelectorAll(".role-tab"));
+    var panels = {
+      vibe: document.getElementById("panel-vibe"),
+      dev: document.getElementById("panel-dev")
+    };
+
+    if (!tabs.length || !panels.vibe || !panels.dev) return;
+
+    function activate(role) {
+      tabs.forEach(function (tab) {
+        var on = tab.getAttribute("data-role") === role;
+        tab.classList.toggle("is-active", on);
+        tab.setAttribute("aria-selected", on ? "true" : "false");
+      });
+
+      Object.keys(panels).forEach(function (key) {
+        var panel = panels[key];
+        var on = key === role;
+        panel.classList.toggle("is-active", on);
+        if (on) panel.removeAttribute("hidden");
+        else panel.setAttribute("hidden", "");
+      });
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        activate(tab.getAttribute("data-role") || "vibe");
       });
     });
   }
 
-  function initFaqTracking() {
-    document.querySelectorAll("details[data-track-details]").forEach(function (el) {
-      el.addEventListener("toggle", function () {
-        if (!el.open) return;
-        track(el.getAttribute("data-track-details") || "faq_open");
+  function initDemo() {
+    var lines = Array.prototype.slice.call(document.querySelectorAll("#demo-thread .demo-line"));
+    if (!lines.length) return;
+
+    if (preferReducedMotion()) {
+      lines.forEach(function (line) {
+        line.classList.add("is-on");
       });
-    });
+      return;
+    }
+
+    var step = 0;
+    var total = lines.length;
+
+    function paint() {
+      lines.forEach(function (line, index) {
+        line.classList.toggle("is-on", index <= step);
+        line.classList.toggle("is-current", index === step);
+      });
+      step = (step + 1) % total;
+    }
+
+    paint();
+    window.setInterval(paint, 1600);
   }
 
-  function initViewTracking() {
-    var nodes = document.querySelectorAll("[data-track-view]");
-    if (!nodes.length || !("IntersectionObserver" in window)) return;
+  function initStickyCta() {
+    var sticky = document.getElementById("sticky-cta");
+    var hero = document.getElementById("top");
+    var install = document.getElementById("install");
+    if (!sticky || !hero || !install) return;
+    if (!window.matchMedia("(max-width: 719px)").matches) return;
+    if (!("IntersectionObserver" in window)) return;
+
+    var heroVisible = true;
+    var installVisible = false;
+
+    function sync() {
+      var show = !heroVisible && !installVisible;
+      sticky.hidden = !show;
+      document.body.classList.toggle("has-sticky-cta", show);
+    }
 
     var observer = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          var name = entry.target.getAttribute("data-track-view");
-          if (!name) return;
-          track(name);
-          observer.unobserve(entry.target);
+          if (entry.target === hero) heroVisible = entry.isIntersecting;
+          if (entry.target === install) installVisible = entry.isIntersecting;
         });
+        sync();
       },
-      { threshold: 0.45 }
+      { threshold: 0.12 }
     );
 
-    nodes.forEach(function (el) {
-      observer.observe(el);
-    });
-  }
-
-  function formatCount(n) {
-    if (n >= 1000) {
-      return (n / 1000).toFixed(n >= 10000 ? 0 : 1).replace(/\.0$/, "") + "k";
-    }
-    return String(n);
-  }
-
-  function initStars() {
-    var target = document.getElementById("star-count");
-    if (!target) return;
-
-    fetch("https://api.github.com/repos/irpsv/ai-bro", {
-      headers: { Accept: "application/vnd.github+json" }
-    })
-      .then(function (res) {
-        if (!res.ok) throw new Error("github api " + res.status);
-        return res.json();
-      })
-      .then(function (data) {
-        var stars = Number(data.stargazers_count) || 0;
-        target.textContent = "★ " + formatCount(stars);
-        track("github_stars_loaded", { stars: stars });
-      })
-      .catch(function () {
-        target.textContent = "★ GitHub";
-        track("github_stars_failed");
-      });
+    observer.observe(hero);
+    observer.observe(install);
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    pickHeroVariant();
-    initReveal();
     initCopyButtons();
-    initClickTracking();
-    initFaqTracking();
-    initViewTracking();
-    initStars();
-    track("page_view");
+    initRoleTabs();
+    initDemo();
+    initStickyCta();
   });
 })();
