@@ -25,11 +25,11 @@ disable-model-invocation: true
 * **developer** — выполняет автономную реализацию поставленной задачи.
   * prompt: [developer-prompt](./subagents/developer-prompt.md)
   * model: [coding](./references/subagent-model-tiers.md#coding)
-  * Подставь сформированный workflow task payload вместо `<задача>` в промпте
+  * Подставь сформированный workflow task payload вместо `<task payload>` в промпте
 * **reviewer** — независимо проверяет выполненную реализацию.
   * prompt: [reviewer-prompt](./subagents/reviewer-prompt.md)
   * model: [code-reviewer](./references/subagent-model-tiers.md#code-reviewer)
-  * Подставь тот же task payload вместо `<задача>` в промпте
+  * Подставь тот же task payload вместо `<task payload>` в промпте
 
 ## Принцип автономности
 
@@ -64,7 +64,7 @@ disable-model-invocation: true
 Если указан другой файл плана, загрузи и следуй инструкциям из [generic-plan](./workflows/generic-plan.md)
 Иначе загрузи и следуй инструкциям из [inline-task](./workflows/inline-task.md)
 
-Workflow определяет содержимое `<задача>` в промптах субагентов. Оркестратор не пересказывает задачу своими словами, если workflow уже сформировал payload.
+Workflow определяет содержимое `<task payload>` в промптах субагентов. Оркестратор не пересказывает задачу своими словами, если workflow уже сформировал payload.
 Тир и семейство модели выбирай по [subagent-model-tiers](./references/subagent-model-tiers.md).
 
 ### 2. Реализация
