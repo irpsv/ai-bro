@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="ai-bro — скиллы для AI-агентов. Меньше хаоса в чате, больше понятного результата. Установка одной командой." />
+  <meta name="theme-color" content="#1d4ed8" />
+  <title>ai-bro — меньше хаоса с AI-агентом, больше результата</title>
+
+  <link rel="canonical" href="https://irpsv.github.io/ai-bro/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:site_name" content="ai-bro" />
+  <meta property="og:url" content="https://irpsv.github.io/ai-bro/" />
+  <meta property="og:title" content="ai-bro — меньше хаоса с AI-агентом, больше результата" />
+  <meta property="og:description" content="Скиллы для AI-агентов: думайте, планируйте и реализуйте по понятному сценарию. Установка одной командой." />
+  <meta property="og:image" content="https://irpsv.github.io/ai-bro/assets/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="ai-bro — твой бро для работы с AI-агентами" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ai-bro — меньше хаоса с AI-агентом, больше результата" />
+  <meta name="twitter:description" content="Скиллы для AI-агентов: думайте, планируйте и реализуйте по понятному сценарию. Установка одной командой." />
+  <meta name="twitter:image" content="https://irpsv.github.io/ai-bro/assets/og.jpg" />
+
+  <link rel="icon" href="./assets/ai-bro-logo-small.png" type="image/png" />
+  <link rel="preload" as="image" href="./assets/banner.webp" type="image/webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "ai-bro",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Набор скиллов для AI-агентов: думайте, планируйте и реализуйте по понятному сценарию.",
+    "url": "https://irpsv.github.io/ai-bro/",
+    "author": {
+      "@type": "Person",
+      "name": "Ilya Rupasov",
+      "url": "https://github.com/irpsv"
+    }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">К содержимому</a>
+
+  <header class="topbar">
+    <a class="brand" href="#top">
+      <picture>
+        <source srcset="./assets/ai-bro-logo-small.webp" type="image/webp" />
+        <img src="./assets/ai-bro-logo-small.png" alt="" width="32" height="32" />
+      </picture>
+      <span>ai-bro</span>
+    </a>
+    <nav class="topnav" aria-label="Основная навигация">
+      <a href="#demo">Демо</a>
+      <a href="#roles">Для кого</a>
+      <a href="#install">Установка</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="topbar-cta" href="#install">Установить</a>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-brand">
+      <div class="hero-bg" aria-hidden="true">
+        <picture>
+          <source srcset="./assets/banner.webp" type="image/webp" />
+          <img src="./assets/banner.png" alt="" width="840" height="472" fetchpriority="high" />
+        </picture>
+      </div>
+      <div class="hero-veil" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <p class="hero-brand" id="hero-brand">ai-bro</p>
+        <h1 class="hero-title">Меньше хаоса с AI-агентом — больше понятного результата</h1>
+        <p class="hero-lead">
+          Скиллы, которые ведут диалог по делу: от идеи до кода и памяти проекта.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#install">Поставить за минуту</a>
+          <a class="btn btn-secondary" href="#demo">Смотреть демо</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust" aria-label="Коротко о продукте">
+      <div class="container">
+        <ul class="trust-list">
+          <li>Одна команда установки</li>
+          <li>Без навязанной методологии</li>
+          <li>Два режима: вайб и план</li>
+          <li>Типичный результат — за один чат</li>
+        </ul>
+        <ul class="compat-list" aria-label="Совместимость">
+          <li>Cursor</li>
+          <li>Claude Code</li>
+          <li>Codex</li>
+          <li>и другие оболочки с Agent Skills</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="demo" id="demo" aria-labelledby="demo-title">
+      <div class="container">
+        <header class="section-head">
+          <h2 id="demo-title">Как это выглядит в чате</h2>
+          <p>Короткий сценарий вайбкодера: прояснили — и сразу к результату.</p>
+        </header>
+
+        <div class="demo-window" aria-label="Демонстрация диалога">
+          <div class="demo-chrome" aria-hidden="true">
+            <span></span><span></span><span></span>
+            <p>ai-bro · сессия</p>
+          </div>
+          <div class="demo-thread" id="demo-thread">
+            <p class="demo-line you is-on" data-step="0"><span>Вы</span>/bro-think-with-me хочу упростить онбординг</p>
+            <p class="demo-line bro" data-step="1"><span>Бро</span>Ок. Главная боль — слишком много шагов или непонятные поля?</p>
+            <p class="demo-line you" data-step="2"><span>Вы</span>Много шагов. Оставим email и пароль.</p>
+            <p class="demo-line bro" data-step="3"><span>Бро</span>Тогда следующий шаг — сразу воплотить без отдельного плана.</p>
+            <p class="demo-line you" data-step="4"><span>Вы</span>/bro-vibe-code сделай выбранный вариант</p>
+            <p class="demo-line bro result" data-step="5"><span>Бро</span>Сделаю так, чтобы регистрация была в один экран. Реализую, проверю и прогоню ревью.</p>
+          </div>
+        </div>
+
+        <div class="compare">
+          <div class="compare-col before">
+            <p class="compare-label">Просто чат</p>
+            <ul>
+              <li>Длинные ответы без следующего шага</li>
+              <li>Думание, план и код вперемешку</li>
+              <li>Контекст теряется между сессиями</li>
+            </ul>
+          </div>
+          <div class="compare-col after">
+            <p class="compare-label">С ai-bro</p>
+            <ul>
+              <li>Понятный режим под задачу</li>
+              <li>Сначала ясность — потом реализация</li>
+              <li>Знания остаются в памяти проекта</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="roles" id="roles" aria-labelledby="roles-title">
+      <div class="container">
+        <header class="section-head">
+          <h2 id="roles-title">Выберите свой путь</h2>
+          <p>Один набор скиллов — два ритма работы.</p>
+        </header>
+
+        <div class="role-switch" role="tablist" aria-label="Режим работы">
+          <button type="button" class="role-tab is-active" role="tab" id="tab-vibe" aria-selected="true" aria-controls="panel-vibe" data-role="vibe">
+            Вайбкодер
+          </button>
+          <button type="button" class="role-tab" role="tab" id="tab-dev" aria-selected="false" aria-controls="panel-dev" data-role="dev">
+            Разработчик
+          </button>
+        </div>
+
+        <article class="role-panel is-active" role="tabpanel" id="panel-vibe" aria-labelledby="tab-vibe">
+          <h3>Хочу результат, а не план на три экрана</h3>
+          <p class="role-promise">
+            Прояснили идею — и сразу к коду. Агент сам реализует, проверит и сделает ревью.
+          </p>
+          <ol class="role-path">
+            <li>
+              <strong>Думаем вместе</strong>
+              <code>/bro-think-with-me</code>
+              <span>Коротко договариваемся, что изменится для пользователя.</span>
+            </li>
+            <li>
+              <strong>Делаем сразу</strong>
+              <code>/bro-vibe-code</code>
+              <span>Без отдельного плана: сводка → реализация → проверка.</span>
+            </li>
+          </ol>
+        </article>
+
+        <article class="role-panel" role="tabpanel" id="panel-dev" aria-labelledby="tab-dev" hidden>
+          <h3>Нужны контроль, план и память проекта</h3>
+          <p class="role-promise">
+            Сначала однозначно решаем «что делаем», потом реализуем и сохраняем знания о проекте.
+          </p>
+          <ol class="role-path">
+            <li>
+              <strong>Думаем</strong>
+              <code>/bro-think-with-me</code>
+              <span>Сужаем неопределённость до понятного подхода.</span>
+            </li>
+            <li>
+              <strong>Планируем</strong>
+              <code>/bro-give-me-plan</code>
+              <span>Однозначный план без кода — под масштаб задачи.</span>
+            </li>
+            <li>
+              <strong>Делаем</strong>
+              <code>/bro-do-it</code>
+              <span>Реализация по плану с обязательным ревью.</span>
+            </li>
+            <li>
+              <strong>Запоминаем</strong>
+              <code>/bro-remember-it</code>
+              <span>Пишем устойчивые знания в память проекта — чтобы следующий чат не начинался с нуля.</span>
+            </li>
+          </ol>
+        </article>
+      </div>
+    </section>
+
+    <section class="easy" id="easy" aria-labelledby="easy-title">
+      <div class="container narrow">
+        <header class="section-head">
+          <h2 id="easy-title">Три шага до первого результата</h2>
+          <p>Без настройки методологии и без чтения десятка файлов.</p>
+        </header>
+
+        <ol class="easy-steps">
+          <li>
+            <strong>Установите скиллы</strong>
+            <span>Одна команда — или попросите агента поставить их сам.</span>
+          </li>
+          <li>
+            <strong>Вызовите slash-команду</strong>
+            <span>Например <code>/bro-on-board</code> или <code>/bro-think-with-me</code>.</span>
+          </li>
+          <li>
+            <strong>Двигайтесь по сценарию</strong>
+            <span>Вайбкодинг или план → код → память — только то, что нужно сейчас.</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="install" id="install" aria-labelledby="install-title">
+      <div class="container narrow">
+        <header class="section-head">
+          <h2 id="install-title">Поставьте ai-bro за минуту</h2>
+          <p>
+            Совместим с Cursor, Claude Code, Codex и другими оболочками с Agent Skills.
+          </p>
+        </header>
+
+        <div class="install-block">
+          <div class="install-head">
+            <p class="install-label">Через CLI</p>
+            <button type="button" class="copy-btn" data-copy="npx skills add irpsv/ai-bro -g">
+              Скопировать
+            </button>
+          </div>
+          <pre><code>npx skills add irpsv/ai-bro -g</code></pre>
+        </div>
+
+        <div class="install-block">
+          <div class="install-head">
+            <p class="install-label">Или скажите агенту</p>
+            <button
+              type="button"
+              class="copy-btn"
+              data-copy="Установи скиллы из репозитория https://github.com/irpsv/ai-bro"
+            >
+              Скопировать
+            </button>
+          </div>
+          <pre><code>Установи скиллы из репозитория https://github.com/irpsv/ai-bro</code></pre>
+        </div>
+
+        <p class="install-next">
+          После установки скажите <code>/bro-on-board</code> — бро покажет карту скиллов
+          и предложит завести память проекта.
+        </p>
+      </div>
+    </section>
+
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+      <div class="container narrow">
+        <header class="section-head">
+          <h2 id="faq-title">Частые вопросы</h2>
+        </header>
+
+        <div class="faq-list">
+          <details>
+            <summary>Это плагин для IDE?</summary>
+            <p>
+              Нет. Это набор скиллов для AI-агентов: инструкции, которые агент подхватывает
+              через slash-команды. Работает там, где поддерживаются Agent Skills.
+            </p>
+          </details>
+          <details>
+            <summary>Нужен ли план всегда?</summary>
+            <p>
+              Нет. Вайбкодеру достаточно <code>/bro-think-with-me</code> и <code>/bro-vibe-code</code>.
+              План нужен, когда важны контроль и предсказуемая реализация.
+            </p>
+          </details>
+          <details>
+            <summary>Сломает ли это мой текущий workflow?</summary>
+            <p>
+              Нет. ai-bro не заменяет ваш процесс и не навязывает методологию.
+              Вы вызываете только те скиллы, которые нужны сейчас.
+            </p>
+          </details>
+          <details>
+            <summary>Что такое «память проекта»?</summary>
+            <p>
+              Постоянные заметки о проекте, которые агент может читать в следующих сессиях.
+              Их пополняет <code>/bro-remember-it</code>, старт — через <code>/bro-on-board</code>.
+            </p>
+          </details>
+          <details>
+            <summary>Что значит «планирование до кода»?</summary>
+            <p>
+              Сначала фиксируем однозначный план без кода, затем реализуем его.
+              Так меньше сюрпризов в изменениях и проще вернуться к задаче в новом чате.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="details" id="details" aria-labelledby="details-title">
+      <div class="container">
+        <header class="section-head">
+          <h2 id="details-title">Карта скиллов</h2>
+          <p>Если хотите увидеть полную картину этапов.</p>
+        </header>
+
+        <ol class="stage-list">
+          <li>
+            <strong>Знакомимся</strong>
+            <code>/bro-on-board</code>
+            <span>Карта скиллов и старт памяти проекта.</span>
+          </li>
+          <li>
+            <strong>Думаем</strong>
+            <code>/bro-think-with-me</code>
+            <span>Прояснение мысли и выбор подхода.</span>
+          </li>
+          <li>
+            <strong>Дебажим</strong>
+            <code>/bro-debug</code>
+            <span>Поиск причины по фактам, без прыжка к фиксу.</span>
+          </li>
+          <li>
+            <strong>Планируем</strong>
+            <code>/bro-give-me-plan</code>
+            <span>Однозначный план без кода.</span>
+          </li>
+          <li>
+            <strong>Делаем</strong>
+            <code>/bro-do-it</code> · <code>/bro-vibe-code</code>
+            <span>По плану или сразу после обсуждения.</span>
+          </li>
+          <li>
+            <strong>Запоминаем</strong>
+            <code>/bro-remember-it</code>
+            <span>Фиксация знаний между сессиями.</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="contacts" id="contacts" aria-labelledby="contacts-title">
+      <div class="container narrow">
+        <h2 id="contacts-title">Контакты</h2>
+        <p>Вопросы и идеи — через репозиторий или страницу автора.</p>
+        <ul class="contact-list">
+          <li>
+            <a href="https://github.com/irpsv/ai-bro" target="_blank" rel="noopener noreferrer">
+              Репозиторий ai-bro
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/irpsv" target="_blank" rel="noopener noreferrer">
+              github.com/irpsv
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>ai-bro — скиллы, с которыми AI-агент работает по делу</p>
+      <p>
+        <a href="https://github.com/irpsv/ai-bro" target="_blank" rel="noopener noreferrer">Репозиторий</a>
+        ·
+        <a href="https://github.com/irpsv" target="_blank" rel="noopener noreferrer">Автор</a>
+      </p>
+    </div>
+  </footer>
+
+  <div class="sticky-cta" id="sticky-cta" hidden>
+    <a class="btn btn-accent" href="#install">Поставить за минуту</a>
+  </div>
+
+  <script src="./script.js" defer></script>
+</body>
+</html>
