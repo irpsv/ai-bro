@@ -64,6 +64,49 @@
         "Ответ не выдаёт список конкретных code findings по вымышленным файлам",
         "Ответ не изменяет файлы репозитория"
       ]
+    },
+    {
+      "id": 5,
+      "prompt": "/bro-review-code проведи ревью фичи комментариев в PHP-блоге evals/files/php-blog/. Контекст и критерии — в TASK.md. Это крупное изменение (публичные страницы, сервис, репозиторий, шаблоны, тесты). Код не исправляй.",
+      "expected_output": "Единый отчёт по PHP-блогу с комментариями. Ожидаются findings минимум по: (1) SQL injection в поиске комментариев, (2) stored XSS из-за сырого вывода body, (3) удаление чужого комментария любым авторизованным пользователем, (4) CSRF на create/delete не проверяется, (5) лишние запросы при загрузке комментариев, (6) тесты не покрывают права удаления и экранирование. Формат findings соблюдён, код не изменён, есть краткое резюме.",
+      "files": [
+        "evals/files/php-blog/TASK.md",
+        "evals/files/php-blog/composer.json",
+        "evals/files/php-blog/config/config.php",
+        "evals/files/php-blog/sql/schema.sql",
+        "evals/files/php-blog/sql/seed.sql",
+        "evals/files/php-blog/src/Auth.php",
+        "evals/files/php-blog/src/CommentRepository.php",
+        "evals/files/php-blog/src/CommentService.php",
+        "evals/files/php-blog/src/Database.php",
+        "evals/files/php-blog/src/PostRepository.php",
+        "evals/files/php-blog/src/View.php",
+        "evals/files/php-blog/public/bootstrap.php",
+        "evals/files/php-blog/public/index.php",
+        "evals/files/php-blog/public/post.php",
+        "evals/files/php-blog/public/comment.php",
+        "evals/files/php-blog/public/login.php",
+        "evals/files/php-blog/public/logout.php",
+        "evals/files/php-blog/public/assets/styles.css",
+        "evals/files/php-blog/templates/layout.php",
+        "evals/files/php-blog/templates/index.php",
+        "evals/files/php-blog/templates/post.php",
+        "evals/files/php-blog/templates/login.php",
+        "evals/files/php-blog/tests/CommentServiceTest.php"
+      ],
+      "assertions": [
+        "Есть finding про SQL injection (или небезопасную конкатенацию) в поиске комментариев CommentRepository::listForPost",
+        "Есть finding про XSS / отсутствие экранирования body комментария в templates/post.php",
+        "Есть finding про недостаточную авторизацию при удалении комментария (любой залогиненный может удалить чужой)",
+        "Есть finding про отсутствие проверки CSRF в public/comment.php",
+        "Есть finding про производительность: лишние запросы в CommentService::commentsWithProfiles или эквивалентный N+1",
+        "Есть finding или явное замечание, что тесты не проверяют запрет удаления чужого комментария и/или экранирование HTML",
+        "Findings используют поля severity, criterion, where, problem, impact, evidence, suggestion",
+        "Среди criterion встречаются как минимум security и ещё один из correctness/performance/tests/requirements",
+        "Есть блок «Краткое резюме»",
+        "Ответ на русском языке",
+        "Код фикстуры не изменён и не представлен как уже применённый патч"
+      ]
     }
   ]
 }
