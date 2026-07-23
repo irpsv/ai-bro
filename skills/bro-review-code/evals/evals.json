@@ -1,0 +1,112 @@
+{
+  "skill_name": "bro-review-code",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "/bro-review-code проверь файлы в evals/files/idor-orders/ как объект ревью. Контекст задачи — в TASK.md. Не исправляй код, только ревью.",
+      "expected_output": "Отчёт с finding по отсутствию проверки владельца заказа (IDOR): пользователь может прочитать чужой заказ. Указаны severity/criterion/where/problem/impact/evidence/suggestion. Отмечен пробел в тестах. Код не изменён. Есть краткое резюме.",
+      "files": [
+        "evals/files/idor-orders/TASK.md",
+        "evals/files/idor-orders/orders.py",
+        "evals/files/idor-orders/test_orders.py"
+      ],
+      "assertions": [
+        "В ответе есть хотя бы один finding про отсутствие проверки владельца заказа или IDOR/BOLA",
+        "У finding по доступу criterion равен security или tests",
+        "severity для проблемы доступа не ниже high",
+        "В finding есть конкретное where с файлом orders.py или функцией get_order",
+        "В finding есть evidence, опирающееся на код (отсутствие сравнения owner_id и user_id)",
+        "Ответ не предлагает и не применяет патч или правку файлов как выполненное исправление",
+        "Есть блок «Краткое резюме»",
+        "Ответ на русском языке"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Сделай /bro-review-code по изменениям в evals/files/discount-bug/. Задача и критерии — в TASK.md. Код не трогай.",
+      "expected_output": "Findings по неверной формуле скидки (деление на 10 вместо 100) и/или отсутствию защиты от отрицательного итога при discount_percent > 100. Отмечена слабость тестов, которые не ловят баг. Формат findings соблюдён, код не менялся.",
+      "files": [
+        "evals/files/discount-bug/TASK.md",
+        "evals/files/discount-bug/pricing.py",
+        "evals/files/discount-bug/test_pricing.py"
+      ],
+      "assertions": [
+        "Есть finding о некорректном расчёте скидки (например // 10 вместо // 100 или эквивалентная ошибка масштаба)",
+        "criterion для дефекта расчёта равен correctness",
+        "Есть finding или явное замечание по тестам: существующие тесты не ловят поломку формулы",
+        "У findings заполнены problem, impact и evidence",
+        "Файлы pricing.py и test_pricing.py не переписаны и не «исправлены» в ответе как уже сделанное изменение",
+        "Есть блок «Краткое резюме»"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "/bro-review-code посмотри evals/files/clean-rename/ — там только переименование локальной переменной ради читаемости. Задача в TASK.md. Нужно независимое ревью без правок.",
+      "expected_output": "Существенных проблем не найдено (или нет medium+/security/correctness findings). Нет натянутых стилистических замечаний как findings. Есть краткое резюме. Код не изменён.",
+      "files": [
+        "evals/files/clean-rename/TASK.md",
+        "evals/files/clean-rename/user_service.py"
+      ],
+      "assertions": [
+        "Ответ содержит «Существенных проблем не найдено» либо не содержит findings с severity critical/high",
+        "Нет finding только про стиль именования, предпочтения форматирования или необязательный рефакторинг",
+        "Есть блок «Краткое резюме»",
+        "Ответ не изменяет и не предлагает уже применённый патч к user_service.py"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "/bro-review-code проверь, всё ли ок",
+      "expected_output": "Скилл не выдумывает findings по неизвестному diff. Останавливается и запрашивает объект ревью (diff, ветка, PR или файлы), потому что граница изменений неоднозначна.",
+      "files": [],
+      "assertions": [
+        "Ответ запрашивает уточнение объекта ревью (diff, коммиты, ветка, PR или файлы)",
+        "Ответ не выдаёт список конкретных code findings по вымышленным файлам",
+        "Ответ не изменяет файлы репозитория"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "/bro-review-code проведи ревью фичи комментариев в PHP-блоге evals/files/php-blog/. Контекст и критерии — в TASK.md. Это крупное изменение (публичные страницы, сервис, репозиторий, шаблоны, тесты). Код не исправляй.",
+      "expected_output": "Единый отчёт по PHP-блогу с комментариями. Ожидаются findings минимум по: (1) SQL injection в поиске комментариев, (2) stored XSS из-за сырого вывода body, (3) удаление чужого комментария любым авторизованным пользователем, (4) CSRF на create/delete не проверяется, (5) лишние запросы при загрузке комментариев, (6) тесты не покрывают права удаления и экранирование. Формат findings соблюдён, код не изменён, есть краткое резюме.",
+      "files": [
+        "evals/files/php-blog/TASK.md",
+        "evals/files/php-blog/composer.json",
+        "evals/files/php-blog/config/config.php",
+        "evals/files/php-blog/sql/schema.sql",
+        "evals/files/php-blog/sql/seed.sql",
+        "evals/files/php-blog/src/Auth.php",
+        "evals/files/php-blog/src/CommentRepository.php",
+        "evals/files/php-blog/src/CommentService.php",
+        "evals/files/php-blog/src/Database.php",
+        "evals/files/php-blog/src/PostRepository.php",
+        "evals/files/php-blog/src/View.php",
+        "evals/files/php-blog/public/bootstrap.php",
+        "evals/files/php-blog/public/index.php",
+        "evals/files/php-blog/public/post.php",
+        "evals/files/php-blog/public/comment.php",
+        "evals/files/php-blog/public/login.php",
+        "evals/files/php-blog/public/logout.php",
+        "evals/files/php-blog/public/assets/styles.css",
+        "evals/files/php-blog/templates/layout.php",
+        "evals/files/php-blog/templates/index.php",
+        "evals/files/php-blog/templates/post.php",
+        "evals/files/php-blog/templates/login.php",
+        "evals/files/php-blog/tests/CommentServiceTest.php"
+      ],
+      "assertions": [
+        "Есть finding про SQL injection (или небезопасную конкатенацию) в поиске комментариев CommentRepository::listForPost",
+        "Есть finding про XSS / отсутствие экранирования body комментария в templates/post.php",
+        "Есть finding про недостаточную авторизацию при удалении комментария (любой залогиненный может удалить чужой)",
+        "Есть finding про отсутствие проверки CSRF в public/comment.php",
+        "Есть finding про производительность: лишние запросы в CommentService::commentsWithProfiles или эквивалентный N+1",
+        "Есть finding или явное замечание, что тесты не проверяют запрет удаления чужого комментария и/или экранирование HTML",
+        "Findings используют поля severity, criterion, where, problem, impact, evidence, suggestion",
+        "Среди criterion встречаются как минимум security и ещё один из correctness/performance/tests/requirements",
+        "Есть блок «Краткое резюме»",
+        "Ответ на русском языке",
+        "Код фикстуры не изменён и не представлен как уже применённый патч"
+      ]
+    }
+  ]
+}
