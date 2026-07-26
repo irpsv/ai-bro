@@ -1,7 +1,11 @@
 ---
 name: bro-remember-it
-description: Пополняет существующий memory bank — постоянный слой знаний проекта. Use when the user wants to update project knowledge, specs, features, playbooks, or asks «запомни», «добавь в memory bank», «/bro-remember-it». Не инициализирует банк с нуля.
-disable-model-invocation: true
+description: >
+  Пополняет существующий memory bank постоянными знаниями проекта. Используй,
+  когда пользователь явно просит запомнить проектное решение, сохранить сведения
+  в базе знаний, обновить спецификацию или добавить материал в memory bank. Не
+  используй для временного контекста, личных предпочтений или создания memory
+  bank с нуля.
 ---
 
 # Bro Remember It

@@ -1,6 +1,10 @@
 ---
 name: bro-init-memory-bank
-description: Инициализирует memory bank проекта с нуля — структура и первичное заполнение. Use when the user asks «инициализируй memory bank», «создай memory bank», «заведи банк знаний», «/bro-init-memory-bank». Не пополняет существующий банк.
+description: >
+  Создаёт memory bank проекта с нуля и выполняет его первичное заполнение.
+  Используй только при явном вызове /bro-init-memory-bank, когда пользователь
+  хочет создать новый банк знаний проекта. Не используй для пополнения
+  существующего memory bank или сохранения отдельного проектного решения.
 disable-model-invocation: true
 ---
 
