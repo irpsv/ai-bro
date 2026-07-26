@@ -1,0 +1,63 @@
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #1a1a1a;
+  background: #f7f4ef;
+}
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: #243447;
+  color: #fff;
+}
+
+.site-header a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.post-card,
+.post,
+.comment {
+  background: #fff;
+  border: 1px solid #e2ddd4;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.meta,
+.comment-meta {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.comment-form,
+.comment-search,
+.comment-delete,
+.login form {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+textarea,
+input[type="search"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.error {
+  color: #a40000;
+}
