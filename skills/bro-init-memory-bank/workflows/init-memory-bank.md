@@ -4,8 +4,8 @@
 
 ## Правила workflow
 
-1. **ОБЯЗАТЕЛЬНО** соблюдай [структуру memory bank](../references/memory-bank-structure.md) и [правила содержимого](../references/content-rules.md).
-2. Если `memory-bank/index.md` уже есть — **ОСТАНОВИСЬ** и предложи `/bro-remember-it`. Не перезаписывай банк.
+- **ОБЯЗАТЕЛЬНО** соблюдай [структуру memory bank](../references/memory-bank-structure.md) и [правила содержимого](../references/content-rules.md).
+- Если `memory-bank/index.md` уже есть — **ОСТАНОВИСЬ** и предложи `/bro-remember-it`. Не перезаписывай банк.
 
 ## ПОРЯДОК РАБОТЫ
 
