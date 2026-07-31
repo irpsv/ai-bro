@@ -64,6 +64,10 @@
     "should_trigger": false
   },
   {
+    "query": "Создай спецификацию результата задачи с критериями приемки в memory-bank/specs, без шагов реализации.",
+    "should_trigger": false
+  },
+  {
     "query": "Обнови OpenAPI-спецификацию в репозитории: добавь endpoint удаления пользователя.",
     "should_trigger": false
   },

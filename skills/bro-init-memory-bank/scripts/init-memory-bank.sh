@@ -15,7 +15,7 @@ if [[ ! -d "${TEMPLATES_DIR}" ]]; then
   exit 1
 fi
 
-mkdir -p "${TARGET}/project" "${TARGET}/features" "${TARGET}/playbooks" "${TARGET}/plans"
+mkdir -p "${TARGET}/project" "${TARGET}/features" "${TARGET}/playbooks" "${TARGET}/specs" "${TARGET}/plans"
 
 cp "${TEMPLATES_DIR}/index.md" "${TARGET}/index.md"
 cp "${TEMPLATES_DIR}/project/"*.md "${TARGET}/project/"
