@@ -14,6 +14,18 @@ AI bro - это набор скиллов, которые делают вашу 
 
 ## Установка
 
+Установить глобально только универсальный скилл `bro-think-with-me`:
+```bash
+npx skills add irpsv/ai-bro -g -s bro-think-with-me
+```
+
+Обновить глобально только `bro-think-with-me`:
+```bash
+npx skills update bro-think-with-me -g
+```
+
+Установить весь набор:
+
 Простой и привычный для всех путь:
 ```bash
 npx skills add irpsv/ai-bro -g
