@@ -75,7 +75,7 @@ frontmatter **ДОЛЖЕН** заполняться согласно [прави
 **READONLY** субагент для критики и проведения ревью артефакта плана.
 **ДОЛЖЕН** скептически смотреть на план и искать его изъяны.
 **ОБЯЗАТЕЛЬНО** при вызове субагента в `Task` — использовать промпт [big-plan-critic-prompt.md](../../subagents/big-plan-critic-prompt.md).
-* model: [analytics](../subagent-model-tiers.md#analytics)
+* model: [senior](../subagent-model-tiers.md#senior)
 
 Перед каждым запуском thinker определи тир и семейство модели по [subagent-model-tiers](../subagent-model-tiers.md).
 

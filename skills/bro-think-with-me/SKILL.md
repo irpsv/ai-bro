@@ -44,7 +44,7 @@ description: >
 
 * **explorer** — READONLY-анализ заданной области репозитория с возвратом краткой выжимки.
   * prompt: [explorer-prompt](./subagents/explorer-prompt.md)
-  * model: [simple](./references/subagent-model-tiers.md#simple) для краткой выжимки и фактов; [coding](./references/subagent-model-tiers.md#coding) для объяснения поведения по исходникам
+  * model: [junior](./references/subagent-model-tiers.md#junior) для краткой выжимки и фактов; [middle](./references/subagent-model-tiers.md#middle) для объяснения поведения по исходникам
   * Подставь сформированный task payload вместо `<task payload>` в промпте
 
 Оркестратор сам ведёт диалог, задаёт вопросы пользователю и синтезирует выводы. Субагент только собирает выжимку по области кода.
