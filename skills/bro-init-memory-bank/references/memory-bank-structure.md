@@ -29,7 +29,6 @@ memory-bank/
   plans/
     <feature-id>/
       plan.md
-      stage-*.md
       deviations-*.md
 ```
 
@@ -86,7 +85,6 @@ memory-bank/
 Артефакты плана **ДОЛЖНЫ** располагаться в следующей иерархии:
 
 - `plans/<feature-id>/plan.md`
-- `plans/<feature-id>/stage-*.md`
 - `plans/<feature-id>/deviations-*.md`
 
 `feature-id` в `plans/` **ДОЛЖЕН** совпадать с идентификатором соответствующей фичи в `features/`, если фича уже описана.

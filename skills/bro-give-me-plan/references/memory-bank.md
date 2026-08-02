@@ -11,7 +11,6 @@
 Артефакты плана **ДОЛЖНЫ** располагаться в следующей иерархии внутри memory bank:
 
 - `plans/<feature-id>/plan.md`
-- `plans/<feature-id>/stage-*.md`
 - `plans/<feature-id>/deviations-*.md`
 
 `feature-id` — kebab-case, латиница, цифры, дефис. Если фича описана в `features/<feature-id>.md`, идентификатор **ДОЛЖЕН** совпадать.
