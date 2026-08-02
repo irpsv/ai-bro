@@ -36,25 +36,3 @@
 3. `openai/codex`
 4. `anthropic/claude-sonnet`
 5. `google/gemini-pro`
-
-## code-reviewer
-
-Используй, когда нужно независимо проверить чужие изменения по коду:
-
-- ревью diff и текущих правок после реализации;
-- поиск рисков, регрессий и расхождений с критериями приемки;
-- проверка безопасности, корректности и производительности изменений;
-- критика решения без выполнения самой реализации.
-
-Целевая глубина размышлений: `balanced`.
-
-Подходящие модели:
-
-1. `cursor/grok-4.5`
-2. `xai/grok`
-3. `openai/codex`
-4. `openai/gpt-terra`
-5. `openai/gpt-sol`
-6. `anthropic/claude-sonnet`
-7. `anthropic/claude-opus`
-8. `anthropic/claude-fable`
