@@ -46,7 +46,7 @@ description: >
 
 ## Выбор режима
 
-Правила выбора тира и семейства модели описаны в [subagent-model-tiers](./references/subagent-model-tiers.md). Для всех reviewer-субагентов используй тир [code-reviewer](./references/subagent-model-tiers.md#code-reviewer).
+Правила выбора тира и семейства модели описаны в [subagent-model-tiers](./references/subagent-model-tiers.md). Для всех reviewer-субагентов используй тир [senior](./references/subagent-model-tiers.md#senior): профильное ревью запускается только для сложных, широких или высокорисковых изменений.
 
 ### Комплексное ревью
 
