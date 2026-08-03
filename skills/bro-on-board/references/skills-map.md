@@ -24,7 +24,7 @@
 ## Memory bank
 
 Постоянный слой знаний проекта: `project/`, `features/`, `playbooks/`.  
-Раздел `changes/` — временные рабочие артефакты: `<feature-id>.spec.md` создаёт `/bro-give-me-spec`, `<feature-id>.plan.md` — скилл планирования.
+Раздел `changes/` — временные рабочие артефакты: каталог `changes/<feature-id>/` с `spec.md` (создаёт `/bro-give-me-spec`) или `plan.md` (скилл планирования).
 
 - Банка ещё нет → инициализация через `/bro-init-memory-bank`.
 - Банк уже есть → пополнение через `/bro-remember-it`.

@@ -23,4 +23,4 @@
 
 ## changes/
 
-Временные рабочие артефакты изменений. Назначение определяет имя файла: `<feature-id>.spec.md`, `<feature-id>.plan.md`, `<feature-id>.deviations-*.md`. Создаются через `/bro-give-me-spec` и `/bro-give-me-plan`, не входят в корневой справочник.
+Временные рабочие артефакты изменений. Каждое изменение — каталог `changes/<feature-id>/`; внутри — `spec.md`, `plan.md` или `deviations-*.md`. Создаются через `/bro-give-me-spec` и `/bro-give-me-plan`, не входят в корневой справочник.

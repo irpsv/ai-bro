@@ -23,9 +23,10 @@ memory-bank/
     index.md
     <slug>.md
   changes/
-    <feature-id>.spec.md
-    <feature-id>.plan.md
-    <feature-id>.deviations-*.md
+    <feature-id>/
+      spec.md
+      plan.md
+      deviations-*.md
 ```
 
 ## index.md (корень)
@@ -66,19 +67,19 @@ memory-bank/
 
 ## changes/
 
-Временные рабочие артефакты изменений: спецификации результата, планы и отклонения. Назначение файла определяет его имя, а не подкаталог.
+Временные рабочие артефакты изменений: спецификации результата, планы и отклонения.
 
-Артефакты **ДОЛЖНЫ** располагаться плоско в `changes/` по конвенции имён:
+Каждое изменение — **всегда** каталог `changes/<feature-id>/`. Назначение файла внутри каталога определяет его имя:
 
-- `changes/<feature-id>.spec.md` — спецификация результата; управляется `/bro-give-me-spec`
-- `changes/<feature-id>.plan.md` — план реализации; управляется `/bro-give-me-plan`
-- `changes/<feature-id>.deviations-*.md` — отклонения от плана
+- `changes/<feature-id>/spec.md` — спецификация результата; управляется `/bro-give-me-spec`
+- `changes/<feature-id>/plan.md` — план реализации; управляется `/bro-give-me-plan`
+- `changes/<feature-id>/deviations-*.md` — отклонения от плана
 
-**ЗАПРЕЩЕНО** создавать подкаталоги внутри `changes/`.
+**ЗАПРЕЩЕНО** класть артефакты плоско в `changes/` без каталога `<feature-id>/`.
 
-`feature-id` в имени файла **ДОЛЖЕН** совпадать с идентификатором соответствующей фичи в `features/`, если фича уже описана.
+`feature-id` в пути **ДОЛЖЕН** совпадать с идентификатором соответствующей фичи в `features/`, если фича уже описана.
 
 ## Идентификаторы
 
 - `feature-id` и `slug` — kebab-case, латиница, цифры, дефис;
-- один `feature-id` везде одинаковый: `features/auth.md`, `changes/auth.spec.md` и `changes/auth.plan.md`.
+- один `feature-id` везде одинаковый: `features/auth.md`, `changes/auth/spec.md` и `changes/auth/plan.md`.

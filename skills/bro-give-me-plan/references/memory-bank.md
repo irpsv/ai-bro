@@ -8,11 +8,11 @@
 
 ## changes/
 
-Артефакты плана **ДОЛЖНЫ** располагаться плоско в `changes/` внутри memory bank. Назначение файла определяет его имя:
+Артефакты плана **ДОЛЖНЫ** располагаться в каталоге изменения внутри memory bank. `<feature-id>` — **всегда** каталог; назначение файла определяет его имя:
 
-- `changes/<feature-id>.plan.md`
-- `changes/<feature-id>.deviations-*.md`
+- `changes/<feature-id>/plan.md`
+- `changes/<feature-id>/deviations-*.md`
 
-**ЗАПРЕЩЕНО** создавать подкаталоги внутри `changes/`.
+**ЗАПРЕЩЕНО** класть артефакты плоско в `changes/` без каталога `<feature-id>/`.
 
 `feature-id` — kebab-case, латиница, цифры, дефис. Если фича описана в `features/<feature-id>.md`, идентификатор **ДОЛЖЕН** совпадать.
