@@ -1,0 +1,11 @@
+{
+  "name": "ai-bro",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate:skills": "node scripts/validate-skills.mjs"
+  },
+  "devDependencies": {
+    "agent-skills-eval": "^0.1.1"
+  }
+}
