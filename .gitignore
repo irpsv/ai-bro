@@ -20,6 +20,3 @@ Thumbs.db
 # macOS resource fork
 *.AppleDouble
 .LSOverride
-
-# Node
-node_modules/
