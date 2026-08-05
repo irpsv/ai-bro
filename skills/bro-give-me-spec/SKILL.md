@@ -74,7 +74,7 @@ description: >
 Для ревью спецификации используй:
 
 - общий ревьюер — [spec-reviewer-prompt](./subagents/spec-reviewer-prompt.md) на тире `middle` или `senior`;
-- узкий critical-ревьюер — [spec-critical-reviewer-prompt](./subagents/spec-critical-reviewer-prompt.md) на тире `critical`, только если затронуты безопасность, финансы или целостность данных.
+- узкий critical-ревьюер — [spec-critical-reviewer-prompt](./subagents/spec-critical-reviewer-prompt.md) на тире `critical`, только если затронута безопасность.
 
 Тиры и семейства моделей выбери до запуска по [spec-review](./references/spec-review.md) и [subagent-model-tiers](./references/subagent-model-tiers.md). В `Task` передай полный текст промпта с подставленным путём к `spec.md` и контекстом запуска; не ссылайся на файлы скилла внутри промпта субагента.
 
