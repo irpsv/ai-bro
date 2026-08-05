@@ -40,7 +40,7 @@ description: >
 4. **ПРОВЕРЬ**, что каждый изменяемый сценарий из желаемого результата покрыт критерием приемки, а для каждого критерия указан подходящий способ подтверждения.
 5. **ПРОВЕРЬ** наличие memory bank и выбери путь артефакта по [правилам размещения](./references/memory-bank.md). **ПОДТВЕРДИ** путь у человека (и одобрение на обновление, если файл уже есть).
 6. **СОЗДАЙ** или **ОБНОВИ** `spec.md` по шаблону и согласованному пути. Не жди отдельного апрува содержания перед записью.
-7. Если человек явно не просил пропустить ревью — **ВЫПОЛНИ** цикл по [правилам ревью](./references/spec-review.md): выбери тир по [subagent-model-tiers](./references/subagent-model-tiers.md), запусти субагента с полным текстом [spec-reviewer-prompt](./subagents/spec-reviewer-prompt.md), обработай `PASS` / `NEEDS_WORK` / `BLOCKED`.
+7. Если человек явно не просил пропустить ревью — **ВЫПОЛНИ** цикл по [правилам ревью](./references/spec-review.md): выбери тиры по [subagent-model-tiers](./references/subagent-model-tiers.md), запусти общего ревьюера с полным текстом [spec-reviewer-prompt](./subagents/spec-reviewer-prompt.md) и при необходимости узкого critical-ревьюера с [spec-critical-reviewer-prompt](./subagents/spec-critical-reviewer-prompt.md), обработай итоговый `PASS` / `NEEDS_WORK` / `BLOCKED`.
 8. После завершения ревью (или после явного пропуска) **СООБЩИ** итог в чате. Отдельный апрув содержания не запрашивай: актуальный файл уже на диске.
 9. Предложи `/bro-do-it` **только** при `PASS` ревью или при явном пропуске ревью по просьбе человека.
 
@@ -71,7 +71,12 @@ description: >
 
 ## Субагенты
 
-Для ревью спецификации используй только промпт [spec-reviewer-prompt](./subagents/spec-reviewer-prompt.md). Тир и семейство модели выбери до запуска по [spec-review](./references/spec-review.md) и [subagent-model-tiers](./references/subagent-model-tiers.md). В `Task` передай полный текст промпта с подставленным путём к `spec.md` и контекстом запуска; не ссылайся на файлы скилла внутри промпта субагента.
+Для ревью спецификации используй:
+
+- общий ревьюер — [spec-reviewer-prompt](./subagents/spec-reviewer-prompt.md) на тире `middle` или `senior`;
+- узкий critical-ревьюер — [spec-critical-reviewer-prompt](./subagents/spec-critical-reviewer-prompt.md) на тире `critical`, только если затронуты безопасность, финансы или целостность данных.
+
+Тиры и семейства моделей выбери до запуска по [spec-review](./references/spec-review.md) и [subagent-model-tiers](./references/subagent-model-tiers.md). В `Task` передай полный текст промпта с подставленным путём к `spec.md` и контекстом запуска; не ссылайся на файлы скилла внутри промпта субагента.
 
 ## Quality Control
 

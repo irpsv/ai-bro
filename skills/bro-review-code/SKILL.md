@@ -46,11 +46,18 @@ description: >
 
 ## Выбор режима
 
-Правила выбора тира и семейства модели описаны в [subagent-model-tiers](./references/subagent-model-tiers.md). Для всех reviewer-субагентов используй тир [senior](./references/subagent-model-tiers.md#senior): профильное ревью запускается только для сложных, широких или высокорисковых изменений.
+Правила выбора тира и семейства модели описаны в [subagent-model-tiers](./references/subagent-model-tiers.md).
+
+- Для [requirements](./subagents/requirements-review-prompt.md), [correctness](./subagents/correctness-review-prompt.md), [performance](./subagents/performance-review-prompt.md) и [tests](./subagents/tests-review-prompt.md) используй тир [senior](./references/subagent-model-tiers.md#senior).
+- Для [security-review-prompt](./subagents/security-review-prompt.md) используй тир [critical](./references/subagent-model-tiers.md#critical). Ревью безопасности на `critical` **обязательно** при любом профильном ревью; не подменяй его другими профилями и не понижай до `senior`.
+
+Профильное ревью запускается только для сложных, широких или высокорисковых изменений.
 
 ### Комплексное ревью
 
 Если изменение ограничено одним понятным сценарием и подсистемой, а также не затрагивает высокорисковые границы, не запускай вложенных субагентов. Самостоятельно проведи все направления проверки по [комплексному ревью](./references/full-review.md) в текущем контексте.
+
+Если есть поверхности безопасности (auth, секреты, недоверенный ввод, границы доверия) — не оставайся в комплексном режиме: переходи к профильному.
 
 ### Профильное ревью
 
@@ -66,11 +73,13 @@ description: >
 
 - [requirements-review-prompt](./subagents/requirements-review-prompt.md) — соответствие задаче и рамкам;
 - [correctness-review-prompt](./subagents/correctness-review-prompt.md) — корректность и регрессии;
-- [security-review-prompt](./subagents/security-review-prompt.md) — безопасность;
+- [security-review-prompt](./subagents/security-review-prompt.md) — безопасность (**обязательно**, тир `critical`);
 - [performance-review-prompt](./subagents/performance-review-prompt.md) — производительность;
 - [tests-review-prompt](./subagents/tests-review-prompt.md) — качество и полнота тестов.
 
-Для широкого изменения запускай все пять проверок. Для локального, но высокорискового изменения запускай только относящиеся к риску профильные проверки вместе с проверкой корректности. Не запускай профиль, если его предмет заведомо отсутствует в изменениях.
+Для широкого изменения запускай все применимые проверки. Для локального, но высокорискового изменения запускай только относящиеся к риску профильные проверки вместе с проверкой корректности. [security-review-prompt](./subagents/security-review-prompt.md) на `critical` запускай **всегда** при профильном ревью.
+
+Не запускай профиль, если его предмет заведомо отсутствует в изменениях.
 
 Если текущий harness не поддерживает запуск вложенных субагентов, не останавливай ревью и не сокращай его область: самостоятельно последовательно примени все выбранные профильные промпты в текущем контексте, а затем собери единый отчёт по тем же правилам.
 

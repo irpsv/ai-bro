@@ -1,8 +1,8 @@
 {
   "name": "ai-bro",
   "displayName": "AI bro",
-  "version": "1.1.0",
-  "description": "AI bro is a set of skills that makes working with agents more convenient, simpler, and more effective. It does not impose its own vision of the right patterns and methodologies—it adapts to your realities and helps you work within them.",
+  "version": "1.2.0",
+  "description": "AI bro is a set of skills that makes working with agents more convenient, simpler, and more effective. It does not impose its own vision of the right patterns and methodologies—it adapts to your realities and helps you work within them. Includes a critical model tier for mandatory security reviews.",
   "author": {
     "name": "Ilya Rupasov",
     "email": "i.rpsv@live.com"
