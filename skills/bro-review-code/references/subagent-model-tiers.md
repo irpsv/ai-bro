@@ -33,10 +33,9 @@
 
 Подходящие модели:
 
-1. `cursor/grok-4.5`
-2. `xai/grok`
-3. `openai/gpt`
-4. `anthropic/claude-opus`
+1. `cursor/grok`
+2. `openai/gpt`
+3. `anthropic/claude-opus`
 
 ## critical
 
