@@ -16,7 +16,7 @@ disable-model-invocation: true
 - План и спецификация — неизменяемые источники истины. В режиме `plan` строго соблюдай заданные способ и порядок реализации; в режиме `specification` самостоятельно определяй способ достижения результата.
 - Все изменения реализации выполняют только developer-субагенты по [developer-prompt](./subagents/developer-prompt.md). Тир и семейство модели выбирай до запуска по [subagent-model-tiers](./references/subagent-model-tiers.md) и правилам повышения тира ниже.
 - После готовой итерации изменений напрямую вызывай `/bro-review-code`; отдельный reviewer-субагент не нужен.
-- После успешного ревью запускай verifier-субагента по [verifier-prompt](./subagents/verifier-prompt.md). Используй для него тир не ниже текущего тира разработки и не ниже [middle](./references/subagent-model-tiers.md#middle).
+- После успешного ревью запускай verifier-субагента по [verifier-prompt](./subagents/verifier-prompt.md). Используй для него тир [senior](./references/subagent-model-tiers.md#senior).
 - Следуй [правилам автономности и остановки](./references/autonomy-and-stop.md).
 - Успех требует выполнения всех критериев приемки, отсутствия обязательных замечаний ревью и вердикта verifier `PASS`.
 
