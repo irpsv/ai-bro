@@ -28,9 +28,8 @@
 3. `gpt-5.3-codex`
 4. `claude-sonnet-5[effort=medium]`
 5. `gemini-3.1-pro`
-6. `gemini-3.7-flash[effort=low]`
-7. `glm-5.2[effort=high]`
-8. `kimi-k2.7-code`
+6. `glm-5.2[effort=high]`
+7. `kimi-k3[effort=high]`
 
 ## senior
 
@@ -49,8 +48,7 @@
 3. `gpt-5.5[effort=high]`
 4. `claude-opus-5[effort=high]`
 5. `kimi-k3[effort=max]`
-6. `gemini-3.8-flash[effort=high]`
-7. `gemini-3.7-flash[effort=high]`
+6. `gemini-3.7-flash[effort=high]`
 
 ## critical
 
@@ -62,3 +60,5 @@
 
 1. `gpt-5.6-sol[effort=max]`
 2. `claude-fable-5.1[effort=max]`
+3. `gemini-3.8-flash[effort=high]`
+4. `gemini-3.7-flash[effort=high]`
