@@ -1,8 +1,8 @@
 {
   "name": "ai-bro",
   "displayName": "AI bro",
-  "version": "1.2.1",
-  "description": "AI bro is a set of eight skills covering the full agent workflow — onboarding, thinking, specification, planning, implementation, code review, and project memory. It adapts to your realities without imposing methodology. Includes a critical model tier for mandatory security reviews.",
+  "version": "1.3.0",
+  "description": "AI bro is a set of nine skills covering the full agent workflow — onboarding, thinking, specification, planning, spec and plan review, implementation, code review, and project memory. It adapts to your realities without imposing methodology. Includes a critical model tier for mandatory security reviews.",
   "author": {
     "name": "Ilya Rupasov",
     "email": "i.rpsv@live.com"

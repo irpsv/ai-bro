@@ -1,0 +1,10 @@
+{
+  "skill_name": "bro-review-spec-plan",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "/bro-review-spec-plan проверь, всё ли ок",
+      "expected_output": "Скилл не выдумывает findings по неизвестному артефакту. Останавливается и запрашивает объект ревью: путь к spec/plan, текст артефакта или карточку CreatePlan."
+    }
+  ]
+}
