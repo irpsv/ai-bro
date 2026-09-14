@@ -1,13 +1,13 @@
 # subagent-model-tiers
 
 Единый словарь тиров мощности и моделей для субагентов.
-Модели описаны в формате `model-id` или `model-id[effort=…]`. Роль субагента задаётся его промптом и не определяет тир. Сначала выбери минимальный достаточный тир по сложности, неоднозначности и риску задачи, затем первую доступную строку модели внутри этого тира.
+Каждая модель записана двумя формами через слэш: slug harness / имя модели (параметры). Это обычные строки, не код. Параметры справа совпадают с суффиксом slug: -medium → (effort=medium), -thinking → (thinking=true). Если отдельного параметра нет, справа только имя. Роль субагента задаётся его промптом и не определяет тир. Сначала выбери минимальный достаточный тир по сложности, неоднозначности и риску задачи, затем первую доступную строку модели внутри этого тира.
 
 ## Общие правила
 
 1. Для каждого запуска субагента сначала определи минимальный достаточный тир по правилам вызывающего скилла или workflow, затем выбери модель из списка выбранного тира.
 2. Модели внутри каждого тира перечислены в порядке приоритета. Всегда выбирай первую доступную строку из списка выбранного тира целиком.
-3. Если строка недоступна в текущем harness, переходи к следующей по списку в рамках того же тира.
+3. Строка доступна, если текущий harness принимает левый slug либо умеет запустить ту же модель по правому имени и параметрам. Суффикс slug и параметры в скобках — одно и то же, не два разных варианта. Если строка недоступна, переходи к следующей по списку в рамках того же тира.
 4. Повышай тир только по явному правилу вызывающего скилла или workflow: из-за сложности, риска либо результата предыдущей попытки. Недоступность модели сама по себе не является основанием для повышения.
 5. Если ни одна модель выбранного тира недоступна, используй либо **auto** режим, либо текущую **inherit** модель.
 6. Не понижай тир, явно заданный вызывающим скиллом или workflow.
@@ -23,13 +23,13 @@
 
 Подходящие модели:
 
-1. `gpt-5.6-luna[effort=low]`
-2. `gpt-5.4-mini[effort=low]`
-3. `gpt-5.4-nano[effort=low]`
-4. `claude-4.5-haiku[effort=low]`
-5. `gemini-3.7-flash[effort=low]`
-6. `kimi-k2.7-code`
-7. `kimi-k3[effort=low]`
+1. gpt-5.6-luna-medium / GPT 5.6 Luna (effort=medium)
+2. gpt-5.4-mini-medium / GPT 5.4 Mini (effort=medium)
+3. gpt-5.4-nano-medium / GPT 5.4 Nano (effort=medium)
+4. claude-4.5-haiku-thinking / Claude 4.5 Haiku (thinking=true)
+5. gemini-3.7-flash-low / Gemini 3.7 Flash (effort=low)
+6. kimi-k2.7-code / Kimi K2.7 Code
+7. kimi-k3-low / Kimi K3 (effort=low)
 
 ## middle
 
@@ -42,13 +42,13 @@
 
 Подходящие модели:
 
-1. `composer-2.5`
-2. `gpt-5.6-terra[effort=medium]`
-3. `gpt-5.3-codex`
-4. `claude-sonnet-5[effort=medium]`
-5. `gemini-3.1-pro`
-6. `glm-5.2[effort=high]`
-7. `kimi-k3[effort=high]`
+1. composer-2.5 / Composer 2.5
+2. gpt-5.6-terra-medium / GPT 5.6 Terra (effort=medium)
+3. gpt-5.3-codex / GPT 5.3 Codex
+4. claude-sonnet-5-thinking-high / Claude Sonnet 5 (thinking=true, effort=high)
+5. gemini-3.1-pro / Gemini 3.1 Pro
+6. glm-5.2-high / GLM 5.2 (effort=high)
+7. kimi-k3-high / Kimi K3 (effort=high)
 
 ## senior
 
@@ -62,12 +62,12 @@
 
 Подходящие модели:
 
-1. `grok-4.6[effort=xhigh]`
-2. `grok-4.5[effort=high]`
-3. `gpt-5.5[effort=high]`
-4. `claude-opus-5[effort=high]`
-5. `kimi-k3[effort=max]`
-6. `gemini-3.7-flash[effort=high]`
+1. cursor-grok-4.6-high / Grok 4.6 (effort=high)
+2. cursor-grok-4.5-high / Grok 4.5 (effort=high)
+3. gpt-5.5-high / GPT 5.5 (effort=high)
+4. claude-opus-5-thinking-high / Claude Opus 5 (thinking=true, effort=high)
+5. kimi-k3-max / Kimi K3 (effort=max)
+6. gemini-3.7-flash-high / Gemini 3.7 Flash (effort=high)
 
 ## critical
 
@@ -77,7 +77,7 @@
 
 Подходящие модели:
 
-1. `gpt-5.6-sol[effort=max]`
-2. `claude-fable-5.1[effort=max]`
-3. `gemini-3.8-flash[effort=high]`
-4. `gemini-3.7-flash[effort=high]`
+1. gpt-5.6-sol-high / GPT 5.6 Sol (effort=high)
+2. claude-fable-5-1-thinking-high / Claude Fable 5.1 (thinking=true, effort=high)
+3. gemini-3.8-flash-high / Gemini 3.8 Flash (effort=high)
+4. gemini-3.7-flash-high / Gemini 3.7 Flash (effort=high)
