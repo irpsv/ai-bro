@@ -5,14 +5,14 @@
     "email": "i.rpsv@live.com"
   },
   "metadata": {
-    "description": "AI bro skills for the full agent workflow: onboarding, thinking, specification, planning, review, implementation, closing, and project knowledge.",
-    "version": "1.6.1"
+    "description": "AI bro is a set of ten skills covering the full agent workflow — onboarding, thinking, specification, planning, spec and plan review, implementation, code review, closing the work, and adaptable project knowledge. File-based specification and planning call /bro-review-spec-plan in a loop until PASS. It adapts to your realities without imposing methodology. Includes a critical model tier for mandatory security reviews.",
+    "version": "1.7.0"
   },
   "plugins": [
     {
       "name": "ai-bro",
       "source": ".",
-      "description": "AI bro is a set of ten skills covering the full agent workflow — onboarding, thinking, specification, planning, spec and plan review, implementation, code review, closing the work, and adaptable project knowledge."
+      "description": "AI bro is a set of ten skills covering the full agent workflow — onboarding, thinking, specification, planning, spec and plan review, implementation, code review, closing the work, and adaptable project knowledge. File-based specification and planning call /bro-review-spec-plan in a loop until PASS. It adapts to your realities without imposing methodology. Includes a critical model tier for mandatory security reviews."
     }
   ]
 }

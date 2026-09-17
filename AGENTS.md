@@ -4,7 +4,9 @@
 
 - `skills/<name>/` — скиллы: `SKILL.md`, `references/`, при необходимости `workflows/` или `references/workflows/`, `subagents/`.
 - `shared-files/` — эталоны для **копирования** в скилл; из файлов скиллов на них **не** ссылаются.
-- `.cursor-plugin/plugin.json` — манифест Cursor-плагина для Marketplace.
+- `plugin.json` — манифест Agent Plugins.
+- `.cursor-plugin/plugin.json` — манифест Cursor Plugin.
+- `.cursor-plugin/marketplace.json` — манифест Import from Repo.
 - `README.md` — описание набора для пользователей.
 
 ## Cursor plugin
@@ -13,25 +15,32 @@
 
 ### Когда обновлять
 
-После любого из изменений **обязательно** обнови `.cursor-plugin/plugin.json`:
+После любого из изменений состава или метаданных **обязательно** синхронизируй все три манифеста:
+
+- `plugin.json` — Agent Plugins
+- `.cursor-plugin/plugin.json` — Cursor Plugin
+- `.cursor-plugin/marketplace.json` — Import from Repo
+
+Триггеры:
 
 - добавление, удаление или переименование скилла в `skills/`;
 - существенное изменение назначения или состава набора (новые этапы флоу, новые публичные команды);
 - смена логотипа или метаданных плагина для Marketplace.
 
-Правки только внутри уже существующего скилла (текст инструкций, references, workflows) **без** смены публичного имени или роли в наборе обычно не требуют bump версии — достаточно, если манифест уже отражает актуальный состав.
+Правки только внутри уже существующего скилла (текст инструкций, references, workflows) **без** смены публичного имени или роли в наборе обычно не требуют bump версии — достаточно, если манифесты уже отражают актуальный состав.
 
 ### Что обновить
 
-1. Подними `version` по semver: минор — новые скиллы или возможности набора, патч — правки метаданных (`description`, `keywords`, `logo` и т.п.).
-2. Актуализируй `description` и `keywords`, если изменился состав или назначение набора.
-3. Проверь, что `skills` указывает на каталог скиллов, путь `logo` существует, JSON валиден.
-4. Держи `displayName` актуальным для отображения в Marketplace.
+1. Подними `version` по semver **одним значением** во всех трёх файлах: минор — новые скиллы или возможности набора, патч — правки метаданных (`description`, `keywords`, `logo` и т.п.).
+2. Общие поля держи одинаковыми в `plugin.json` и `.cursor-plugin/plugin.json`: `name`, `version`, `description`, `author`, `homepage`, `repository`, `license`, `keywords`.
+3. В `.cursor-plugin/marketplace.json` синхронизируй `name` / `description` / `version` / `owner` с тем же смыслом.
+4. В `.cursor-plugin/plugin.json` проверь, что `skills` указывает на каталог скиллов, путь `logo` существует, `displayName` актуален. Эти поля **не** копируй в корневой `plugin.json`: схема Agent Plugins закрытая (`$schema`, `name`, `version`, `description`, `author`, `homepage`, `repository`, `license`, `keywords`; при необходимости `extensions`).
+5. В корневом `plugin.json` обязателен `"$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"`. JSON во всех трёх файлах должен быть валидным.
 
 ### Запрещено
 
-- Коммитить изменения набора скиллов, оставляя `plugin.json` на устаревшей версии или с устаревшими метаданными.
-- Невалидный JSON в `.cursor-plugin/plugin.json`.
+- Коммитить изменения набора скиллов, оставляя любой из трёх манифестов на устаревшей версии, с рассинхроном общих полей или с устаревшими метаданными.
+- Невалидный JSON в `plugin.json`, `.cursor-plugin/plugin.json` или `.cursor-plugin/marketplace.json`.
 
 ## Skills: frontmatter
 
