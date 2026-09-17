@@ -1,0 +1,18 @@
+{
+  "name": "ai-bro",
+  "owner": {
+    "name": "Ilya Rupasov",
+    "email": "i.rpsv@live.com"
+  },
+  "metadata": {
+    "description": "AI bro skills for the full agent workflow: onboarding, thinking, specification, planning, review, implementation, closing, and project knowledge.",
+    "version": "1.6.1"
+  },
+  "plugins": [
+    {
+      "name": "ai-bro",
+      "source": ".",
+      "description": "AI bro is a set of ten skills covering the full agent workflow — onboarding, thinking, specification, planning, spec and plan review, implementation, code review, closing the work, and adaptable project knowledge."
+    }
+  ]
+}
