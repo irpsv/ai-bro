@@ -4,11 +4,13 @@
 
 ## Список
 
+- `docs/changes/<feature-id>/spec.md`
+- `docs/changes/<feature-id>/plan.md`
 - `memory-bank/changes/<feature-id>/spec.md`
 - `memory-bank/changes/<feature-id>/plan.md`
 - путь, который инструкции проекта **явно** называют временным рабочим артефактом
 
-Корень `memory-bank/` бери из уже загруженного контекста агента (`AGENTS.md`, правила проекта). Если корень банка в контексте не виден — ищи только `memory-bank/changes/` в корне репозитория. Не обходи всё дерево в поисках любых `spec.md` / `plan.md`.
+Корень `docs/` или `memory-bank/` бери из уже загруженного контекста агента (`AGENTS.md`, правила проекта). Если корень банка в контексте не виден — ищи только `docs/changes/` и `memory-bank/changes/` в корне репозитория. Не обходи всё дерево в поисках любых `spec.md` / `plan.md`.
 
 ## Когда удалять
 

@@ -1,7 +1,7 @@
 ## Результаты ревью
 
 - **Статус:** `NEEDS_WORK`
-- **Объект:** `memory-bank/changes/rate-limit/spec.md`
+- **Объект:** `docs/changes/rate-limit/spec.md`
 
 #### [R-001] Гостевой лимит обещан и исключён одновременно
 

@@ -1,13 +1,13 @@
 # Структура memory bank
 
-Корень банка по умолчанию: `memory-bank/` в корне репозитория.
+Корень банка по умолчанию: `docs/` в корне репозитория.
 
-Маркер инициализированного банка: наличие `memory-bank/index.md` и каталогов `project/`, `features/`, `playbooks/`, `changes/`.
+Маркер инициализированного банка: наличие `docs/index.md` или `memory-bank/index.md` и каталогов `project/`, `features/`, `playbooks/`, `changes/`.
 
 ## Дерево каталогов
 
 ```
-memory-bank/
+docs/
   index.md
   project/
     overview.md
