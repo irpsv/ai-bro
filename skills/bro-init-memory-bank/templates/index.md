@@ -23,4 +23,4 @@
 
 ## changes/
 
-Временные рабочие артефакты изменений. Каждое изменение — каталог `changes/<feature-id>/`; внутри — `spec.md`, `plan.md` или `deviations-*.md`. Создаются через `/bro-give-me-spec` и `/bro-give-me-plan`, не входят в корневой справочник.
+Временные рабочие артефакты изменений. Каждое изменение — каталог `changes/<feature-id>/`; внутри — `spec.md`, `plan.md` или `delta-<N>-<slug>.md`. Создаются через `/bro-give-me-spec` и `/bro-give-me-plan`, не входят в корневой справочник.
