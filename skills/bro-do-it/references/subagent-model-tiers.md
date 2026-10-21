@@ -26,8 +26,8 @@
 1. gpt-5.6-luna-medium / GPT 5.6 Luna (effort=medium)
 2. gpt-5.4-mini-medium / GPT 5.4 Mini (effort=medium)
 3. gpt-5.4-nano-medium / GPT 5.4 Nano (effort=medium)
-4. claude-4.5-haiku-thinking / Claude 4.5 Haiku (thinking=true)
-5. gemini-3.7-flash-low / Gemini 3.7 Flash (effort=low)
+4. claude-haiku-5-5-thinking-high / Claude Haiku 5.5 (thinking=true, effort=high)
+5. gemini-3.8-flash-low / Gemini 3.8 Flash (effort=low)
 6. kimi-k2.7-code / Kimi K2.7 Code
 7. kimi-k3-low / Kimi K3 (effort=low)
 
@@ -45,10 +45,11 @@
 1. composer-2.5 / Composer 2.5
 2. gpt-5.6-terra-medium / GPT 5.6 Terra (effort=medium)
 3. gpt-5.3-codex / GPT 5.3 Codex
-4. claude-sonnet-5-thinking-high / Claude Sonnet 5 (thinking=true, effort=high)
+4. claude-sonnet-5-5-high / Claude Sonnet 5.5 (effort=high)
 5. gemini-3.1-pro / Gemini 3.1 Pro
-6. glm-5.2-high / GLM 5.2 (effort=high)
-7. kimi-k3-high / Kimi K3 (effort=high)
+6. gemini-3.8-flash-high / Gemini 3.8 Flash (effort=high)
+7. glm-5p3-high / GLM 5.3 (effort=high)
+8. kimi-k3-high / Kimi K3 (effort=high)
 
 ## senior
 
@@ -62,9 +63,9 @@
 
 Подходящие модели:
 
-1. cursor-grok-4.6-high / Grok 4.6 (effort=high)
-2. cursor-grok-4.5-high / Grok 4.5 (effort=high)
-3. gpt-5.5-high / GPT 5.5 (effort=high)
-4. claude-opus-5-thinking-high / Claude Opus 5 (thinking=true, effort=high)
-5. kimi-k3-max / Kimi K3 (effort=max)
-6. gemini-3.7-flash-high / Gemini 3.7 Flash (effort=high)
+1. grok-4.7-high / Grok 4.7 (effort=high)
+2. gpt-5.5-high / GPT 5.5 (effort=high)
+3. claude-opus-5-5-thinking-high / Claude Opus 5.5 (thinking=true, effort=high)
+4. kimi-k3-max / Kimi K3 (effort=max)
+5. muse-wonder-1.0-high / Muse Wonder 1.0 (effort=high)
+6. gemini-4-argon-medium / Gemini 4 Argon (effort=medium)

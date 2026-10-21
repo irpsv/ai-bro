@@ -24,12 +24,12 @@
 
 Подходящие модели:
 
-1. cursor-grok-4.6-high / Grok 4.6 (effort=high)
-2. cursor-grok-4.5-high / Grok 4.5 (effort=high)
-3. gpt-5.5-high / GPT 5.5 (effort=high)
-4. claude-opus-5-thinking-high / Claude Opus 5 (thinking=true, effort=high)
-5. kimi-k3-max / Kimi K3 (effort=max)
-6. gemini-3.7-flash-high / Gemini 3.7 Flash (effort=high)
+1. grok-4.7-high / Grok 4.7 (effort=high)
+2. gpt-5.5-high / GPT 5.5 (effort=high)
+3. claude-opus-5-5-thinking-high / Claude Opus 5.5 (thinking=true, effort=high)
+4. kimi-k3-max / Kimi K3 (effort=max)
+5. muse-wonder-1.0-high / Muse Wonder 1.0 (effort=high)
+6. gemini-4-argon-medium / Gemini 4 Argon (effort=medium)
 
 ## critical
 
@@ -41,5 +41,4 @@
 
 1. gpt-5.6-sol-high / GPT 5.6 Sol (effort=high)
 2. claude-fable-5-1-thinking-high / Claude Fable 5.1 (thinking=true, effort=high)
-3. gemini-3.8-flash-high / Gemini 3.8 Flash (effort=high)
-4. gemini-3.7-flash-high / Gemini 3.7 Flash (effort=high)
+3. gemini-4-argon-high / Gemini 4 Argon (effort=high)
