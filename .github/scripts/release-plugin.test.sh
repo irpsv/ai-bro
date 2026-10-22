@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Проверяет границы автоматического релиза без обращения к GitHub.
+# Проверяет публикацию релиза без обращения к GitHub.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -33,6 +33,7 @@ chmod +x "$MOCK_BIN/gh"
 
 export GH_LOG GH_RELEASES
 export PATH="$MOCK_BIN:$PATH"
+unset RELEASE_BEFORE_SHA
 
 fail() {
   echo "FAIL: $*" >&2
@@ -94,104 +95,104 @@ commit_all() {
   git -C "$dir" commit -q -m "$message"
 }
 
+sha_of() {
+  git -C "$1" rev-parse HEAD
+}
+
 reset_gh() {
   : >"$GH_LOG"
   : >"$GH_RELEASES"
 }
 
-echo "1. версии 1.11.0 не выпускают релиз"
-repo="$ROOT/current"
+echo "1. без предыдущего коммита push релиз не создаётся"
+repo="$ROOT/no-before"
 init_repo "$repo"
-write_manifests "$repo" "1.11.0"
-mkdir -p "$repo/skills/bro-think-with-me"
-echo skill >"$repo/skills/bro-think-with-me/SKILL.md"
-commit_all "$repo" "Текущее состояние"
+write_manifests "$repo" "1.0.0"
+commit_all "$repo" "Первый коммит"
 reset_gh
+unset RELEASE_BEFORE_SHA
 output="$(cd "$repo" && assert_exit 0 bash "$RELEASE_SCRIPT")"
-[[ "$output" == *"не новее 2.0.0"* ]] || fail "нет сообщения о пропуске: $output"
-[[ ! -s "$GH_LOG" ]] || fail "gh вызван для 1.11.0: $(cat "$GH_LOG")"
+[[ "$output" == *"нет предыдущего коммита"* ]] || fail "нет пропуска без before: $output"
+[[ ! -s "$GH_LOG" ]] || fail "gh вызван без before: $(cat "$GH_LOG")"
 
-echo "2. расхождение манифестов останавливает публикацию"
+echo "2. та же версия в push не выпускает релиз"
+repo="$ROOT/same"
+init_repo "$repo"
+write_manifests "$repo" "1.0.0"
+commit_all "$repo" "Начальная версия"
+before="$(sha_of "$repo")"
+echo "ещё" >>"$repo/README.md"
+commit_all "$repo" "Поправить README"
+reset_gh
+output="$(cd "$repo" && RELEASE_BEFORE_SHA="$before" assert_exit 0 bash "$RELEASE_SCRIPT")"
+[[ "$output" == *"не менялась"* ]] || fail "та же версия не пропущена: $output"
+[[ ! -s "$GH_LOG" ]] || fail "gh вызван без смены версии: $(cat "$GH_LOG")"
+
+echo "3. расхождение манифестов останавливает публикацию"
 repo="$ROOT/mismatch"
 init_repo "$repo"
-write_manifests "$repo" "2.1.0" "2.1.0" "2.0.0"
+write_manifests "$repo" "1.0.0"
+commit_all "$repo" "Начальная версия"
+before="$(sha_of "$repo")"
+write_manifests "$repo" "1.1.0" "1.0.0" "1.1.0"
 commit_all "$repo" "Разошлись версии"
 reset_gh
-output="$(cd "$repo" && assert_exit 1 bash "$RELEASE_SCRIPT")"
+output="$(cd "$repo" && RELEASE_BEFORE_SHA="$before" assert_exit 1 bash "$RELEASE_SCRIPT")"
 [[ "$output" == *"расходятся"* ]] || fail "нет сообщения о расхождении: $output"
-[[ ! -s "$GH_LOG" ]] || fail "gh вызван при расхождении"
+[[ "$GH_LOG" != *"release create"* ]] || fail "релиз создан при расхождении"
 
-echo "3. ровно 2.0.0 остаётся ручным релизом"
-repo="$ROOT/baseline"
+echo "4. смена версии без тега берёт только коммиты этого push"
+repo="$ROOT/no-tag"
 init_repo "$repo"
-write_manifests "$repo" "2.0.0"
-commit_all "$repo" "Поднять версию до 2.0.0"
-reset_gh
-output="$(cd "$repo" && assert_exit 0 bash "$RELEASE_SCRIPT")"
-[[ "$output" == *"публикуется вручную"* ]] || fail "2.0.0 не оставлен ручным: $output"
-[[ ! -s "$GH_LOG" ]] || fail "gh вызван для 2.0.0"
-
-echo "4. версия новее 2.0.0 без ручного релиза не публикуется"
-repo="$ROOT/missing-baseline"
-init_repo "$repo"
-write_manifests "$repo" "2.0.0"
-commit_all "$repo" "База"
-git -C "$repo" tag 2.0.0
-write_manifests "$repo" "2.1.0"
-commit_all "$repo" "Поднять версию до 2.1.0"
-reset_gh
-output="$(cd "$repo" && assert_exit 1 bash "$RELEASE_SCRIPT")"
-[[ "$output" == *"нет релиза 2.0.0"* ]] || fail "нет требования ручного релиза: $output"
-[[ "$GH_LOG" != *"release create"* ]] || fail "релиз создан без базы 2.0.0"
-
-echo "5. тег 2.0.0 не на коммите этой версии останавливает публикацию"
-repo="$ROOT/wrong-tag"
-init_repo "$repo"
-write_manifests "$repo" "1.11.0"
-commit_all "$repo" "Старая версия"
-git -C "$repo" tag 2.0.0
-write_manifests "$repo" "2.1.0"
-mkdir -p "$repo/skills/bro-do-it"
-echo skill >"$repo/skills/bro-do-it/SKILL.md"
-commit_all "$repo" "Поднять версию до 2.1.0"
-reset_gh
-echo "2.0.0" >"$GH_RELEASES"
-output="$(cd "$repo" && assert_exit 1 bash "$RELEASE_SCRIPT")"
-[[ "$output" == *"указывает на коммит"* ]] || fail "плохой тег не пойман: $output"
-[[ "$GH_LOG" != *"release create"* ]] || fail "релиз создан от плохого тега"
-
-echo "6. после 2.0.0 релиз собирается только из новых коммитов и скиллов"
-repo="$ROOT/auto"
-init_repo "$repo"
-write_manifests "$repo" "2.0.0"
+write_manifests "$repo" "1.0.0"
 mkdir -p "$repo/skills/bro-old"
 echo old >"$repo/skills/bro-old/SKILL.md"
-commit_all "$repo" "Базовая версия"
-git -C "$repo" tag 2.0.0
+commit_all "$repo" "Старый коммит"
+before="$(sha_of "$repo")"
 mkdir -p "$repo/skills/bro-do-it"
 echo changed >"$repo/skills/bro-do-it/SKILL.md"
+write_manifests "$repo" "1.1.0"
 commit_all "$repo" "Поправить bro-do-it"
-rm -rf "$repo/skills/bro-old"
-write_manifests "$repo" "2.1.0"
-commit_all "$repo" "Поднять версию до 2.1.0"
 reset_gh
-echo "2.0.0" >"$GH_RELEASES"
-output="$(cd "$repo" && assert_exit 0 bash "$RELEASE_SCRIPT")"
+output="$(cd "$repo" && RELEASE_BEFORE_SHA="$before" assert_exit 0 bash "$RELEASE_SCRIPT")"
 notes="${output#*RELEASE_NOTES_BEGIN}"
 notes="${notes%RELEASE_NOTES_END*}"
-[[ "$notes" == *"Поправить bro-do-it"* ]] || fail "нет промежуточного коммита: $notes"
-[[ "$notes" == *"Поднять версию до 2.1.0"* ]] || fail "нет коммита бампа: $notes"
-[[ "$notes" != *"Базовая версия"* ]] || fail "в заметку попал коммит базового релиза: $notes"
+[[ "$notes" == *"Поправить bro-do-it"* ]] || fail "нет коммита push: $notes"
+[[ "$notes" != *"Старый коммит"* ]] || fail "в заметку попал коммит до push: $notes"
 [[ "$notes" == *"bro-do-it"* ]] || fail "нет изменённого скилла: $notes"
-[[ "$notes" == *"bro-old (удалён)"* ]] || fail "нет удалённого скилла: $notes"
-[[ "$notes" == *"/compare/2.0.0...2.1.0"* ]] || fail "нет ссылки на диапазон: $notes"
-[[ "$notes" == *"/tree/2.1.0/skills/bro-do-it"* ]] || fail "ссылка скилла не на тег релиза: $notes"
-grep -q '^release create 2.1.0 --target .* --title 2.1.0 --notes-file ' "$GH_LOG" || fail "gh release create вызван не так: $(cat "$GH_LOG")"
+grep -q '^release create 1.1.0 --target .* --title 1.1.0 --notes-file ' "$GH_LOG" || fail "gh release create вызван не так: $(cat "$GH_LOG")"
 
-echo "7. повторный запуск не создаёт второй релиз"
-echo "2.1.0" >>"$GH_RELEASES"
+echo "5. предыдущий semver-тег задаёт диапазон, даже если в том коммите другой номер манифеста"
+repo="$ROOT/tagged"
+init_repo "$repo"
+write_manifests "$repo" "0.9.0"
+mkdir -p "$repo/skills/bro-old"
+echo old >"$repo/skills/bro-old/SKILL.md"
+commit_all "$repo" "Коммит под старым тегом"
+git -C "$repo" tag 1.0.0
+before="$(sha_of "$repo")"
+mkdir -p "$repo/skills/bro-finish-it"
+echo skill >"$repo/skills/bro-finish-it/SKILL.md"
+commit_all "$repo" "Поправить bro-finish-it"
+rm -rf "$repo/skills/bro-old"
+write_manifests "$repo" "1.2.0"
+commit_all "$repo" "Поднять версию"
+reset_gh
+output="$(cd "$repo" && RELEASE_BEFORE_SHA="$before" assert_exit 0 bash "$RELEASE_SCRIPT")"
+notes="${output#*RELEASE_NOTES_BEGIN}"
+notes="${notes%RELEASE_NOTES_END*}"
+[[ "$notes" == *"Поправить bro-finish-it"* ]] || fail "нет промежуточного коммита: $notes"
+[[ "$notes" == *"Поднять версию"* ]] || fail "нет коммита бампа: $notes"
+[[ "$notes" != *"Коммит под старым тегом"* ]] || fail "в заметку попал коммит тега: $notes"
+[[ "$notes" == *"bro-finish-it"* ]] || fail "нет изменённого скилла: $notes"
+[[ "$notes" == *"bro-old (удалён)"* ]] || fail "нет удалённого скилла: $notes"
+[[ "$notes" == *"/compare/1.0.0...1.2.0"* ]] || fail "диапазон взят не от тега: $notes"
+grep -q '^release create 1.2.0 --target .* --title 1.2.0 --notes-file ' "$GH_LOG" || fail "gh release create вызван не так: $(cat "$GH_LOG")"
+
+echo "6. уже существующий релиз не создаётся повторно"
+echo "1.2.0" >"$GH_RELEASES"
 : >"$GH_LOG"
-output="$(cd "$repo" && assert_exit 0 bash "$RELEASE_SCRIPT")"
+output="$(cd "$repo" && RELEASE_BEFORE_SHA="$before" assert_exit 0 bash "$RELEASE_SCRIPT")"
 [[ "$output" == *"уже есть"* ]] || fail "повтор не пропущен: $output"
 [[ "$GH_LOG" != *"release create"* ]] || fail "повтор создал релиз"
 

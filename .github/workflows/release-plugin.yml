@@ -32,7 +32,8 @@ jobs:
       - name: Проверить сценарии релиза
         run: bash .github/scripts/release-plugin.test.sh
 
-      - name: Опубликовать релиз новее 2.0.0
+      - name: Опубликовать релиз, если версия изменилась
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_BEFORE_SHA: ${{ github.event.before }}
         run: bash .github/scripts/release-plugin.sh

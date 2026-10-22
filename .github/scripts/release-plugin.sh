@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Публикует GitHub Release, когда version в манифестах новее базового релиза.
-# Релиз 2.0.0 создаётся вручную и служит нижней границей диапазона коммитов.
+# Публикует GitHub Release, если push в main сменил version в манифестах.
+# Диапазон заметки — от предыдущего semver-тега, а если тега нет, от коммита до push.
 set -euo pipefail
 
-BASELINE="${RELEASE_BASELINE:-2.0.0}"
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT"
 
 SEMVER_RE='^[0-9]+\.[0-9]+\.[0-9]+$'
+ZERO_SHA_RE='^0+$'
 
 die() {
   echo "release-plugin: $*" >&2
@@ -18,25 +18,46 @@ version_lt() {
   [[ "$1" != "$2" ]] && [[ "$(printf '%s\n%s\n' "$1" "$2" | sort -V | head -n1)" == "$1" ]]
 }
 
-version_le() {
-  [[ "$1" == "$2" ]] || version_lt "$1" "$2"
-}
-
 require_semver() {
   local label="$1"
   local value="$2"
   [[ "$value" =~ $SEMVER_RE ]] || die "$label: версия «$value» не в формате X.Y.Z"
 }
 
-read_version() {
-  local file="$1"
-  local expr="$2"
-  jq -er "$expr" "$file"
+version_at() {
+  local sha="$1"
+  local file="$2"
+  local expr="$3"
+  local value=""
+  if git cat-file -e "${sha}:${file}" 2>/dev/null; then
+    value="$(git show "${sha}:${file}" | jq -r "$expr" 2>/dev/null || true)"
+  fi
+  if [[ "$value" == "null" ]]; then
+    value=""
+  fi
+  printf '%s' "$value"
 }
 
-plugin_version="$(read_version plugin.json '.version')"
-cursor_version="$(read_version .cursor-plugin/plugin.json '.version')"
-market_version="$(read_version .cursor-plugin/marketplace.json '.metadata.version')"
+before="${RELEASE_BEFORE_SHA:-}"
+if [[ -z "$before" || "$before" =~ $ZERO_SHA_RE ]]; then
+  echo "release-plugin: нет предыдущего коммита push. Релиз не создаётся."
+  exit 0
+fi
+
+if ! git cat-file -e "${before}^{commit}" 2>/dev/null; then
+  die "коммит до push не найден: $before"
+fi
+
+sha="$(git rev-parse HEAD)"
+plugin_version="$(version_at "$sha" plugin.json '.version')"
+cursor_version="$(version_at "$sha" .cursor-plugin/plugin.json '.version')"
+market_version="$(version_at "$sha" .cursor-plugin/marketplace.json '.metadata.version')"
+previous_version="$(version_at "$before" plugin.json '.version')"
+
+if [[ -n "$previous_version" && "$previous_version" == "$plugin_version" && "$plugin_version" == "$cursor_version" && "$plugin_version" == "$market_version" ]]; then
+  echo "release-plugin: версия $plugin_version не менялась. Релиз не создаётся."
+  exit 0
+fi
 
 require_semver "plugin.json" "$plugin_version"
 require_semver ".cursor-plugin/plugin.json" "$cursor_version"
@@ -48,53 +69,26 @@ fi
 
 version="$plugin_version"
 
-if version_le "$version" "$BASELINE"; then
-  echo "release-plugin: версия $version не новее $BASELINE. Релиз не создаётся: $BASELINE публикуется вручную."
-  exit 0
-fi
-
 if gh release view "$version" >/dev/null 2>&1; then
   echo "release-plugin: релиз $version уже есть."
   exit 0
-fi
-
-if ! gh release view "$BASELINE" >/dev/null 2>&1; then
-  die "нет релиза $BASELINE. Сначала опубликуй его вручную, автоматика начинается со следующей версии."
-fi
-
-if ! git rev-parse -q --verify "refs/tags/$BASELINE" >/dev/null; then
-  die "нет тега $BASELINE в локальной истории. Нельзя собрать заметку релиза."
-fi
-
-if ! git merge-base --is-ancestor "$BASELINE" HEAD; then
-  die "тег $BASELINE не входит в историю текущего коммита. Релиз не создан."
-fi
-
-tagged_baseline="$(git show "$BASELINE:plugin.json" | jq -er '.version')"
-if [[ "$tagged_baseline" != "$BASELINE" ]]; then
-  die "тег $BASELINE указывает на коммит с version=$tagged_baseline. Ожидался коммит, где манифест уже равен $BASELINE."
 fi
 
 previous=""
 while IFS= read -r tag; do
   [[ "$tag" =~ $SEMVER_RE ]] || continue
   version_lt "$tag" "$version" || continue
-  version_le "$BASELINE" "$tag" || continue
   git merge-base --is-ancestor "$tag" HEAD || continue
   if [[ -z "$previous" ]] || version_lt "$previous" "$tag"; then
     previous="$tag"
   fi
 done < <(git tag -l)
 
-[[ -n "$previous" ]] || die "не найден предыдущий тег в диапазоне $BASELINE..$version"
-
-tagged_previous="$(git show "$previous:plugin.json" | jq -er '.version')"
-if [[ "$tagged_previous" != "$previous" ]]; then
-  die "тег $previous указывает на коммит с version=$tagged_previous."
+if [[ -z "$previous" ]]; then
+  previous="$before"
 fi
 
-sha="$(git rev-parse HEAD)"
-repo_url="$(jq -er '.repository' plugin.json)"
+repo_url="$(git show "${sha}:plugin.json" | jq -er '.repository')"
 repo_url="${repo_url%/}"
 
 notes="$(mktemp)"
