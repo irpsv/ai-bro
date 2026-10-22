@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ai-bro",
-  "version": "1.11.0",
+  "version": "2.0.0",
   "description": "AI bro is a set of nine skills covering the full agent workflow — thinking, specification, planning, spec and plan review, implementation, code review, closing the work, and adaptable project knowledge. File-based specification and planning call /bro-review-spec-plan once, then close those findings without a second independent review. It adapts to your realities without imposing methodology. Includes a critical model tier for mandatory security reviews.",
   "author": {
     "name": "Ilya Rupasov",
