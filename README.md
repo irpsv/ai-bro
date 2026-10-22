@@ -36,6 +36,50 @@ npx skills add irpsv/ai-bro -g
 Установи скиллы из репозитория https://github.com/irpsv/ai-bro
 ```
 
+### Cursor
+
+Репозиторий уже собран как плагин Cursor: в нём есть `.cursor-plugin/plugin.json` и `.cursor-plugin/marketplace.json`.
+
+В чате Cursor:
+
+```text
+/add-plugin https://github.com/irpsv/ai-bro
+```
+
+Для команды на Teams или Enterprise: в Dashboard откройте Plugins & MCPs, в Team Marketplaces выберите Import from Repo и вставьте `https://github.com/irpsv/ai-bro`. После импорта плагин ставится из панели Customize на проект или на пользователя.
+
+### Claude Code
+
+Каталога плагинов Claude Code в репозитории нет: нет `.claude-plugin/marketplace.json`, поэтому `/plugin marketplace add irpsv/ai-bro` ставить нечего.
+
+Набор ставится как скиллы — командой из начала этого раздела:
+
+```bash
+npx skills add irpsv/ai-bro -g
+```
+
+Или в сессии Claude Code:
+
+```text
+Установи скиллы из репозитория https://github.com/irpsv/ai-bro
+```
+
+### Codex CLI
+
+Каталога плагинов Codex в репозитории нет: нет `.agents/plugins/marketplace.json`, поэтому `codex plugin marketplace add irpsv/ai-bro` ставить нечего.
+
+Набор ставится как скиллы:
+
+```bash
+npx skills add irpsv/ai-bro -g
+```
+
+Или в сессии Codex:
+
+```text
+Установи скиллы из репозитория https://github.com/irpsv/ai-bro
+```
+
 ## Механика работы
 
 Каждую задачу можно разбить на вполне конкретные и понятные этапы:

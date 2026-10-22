@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ai-bro</title>
+  <meta name="description" content="ai-bro v2 — порядок работы со скиллами: обсуждение, спецификация, реализация, финализация.">
+  <link rel="icon" href="assets/ai-bro-logo-small.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070b12;
+      --bg-raise: #101826;
+      --line: rgba(140, 176, 255, 0.16);
+      --line-strong: rgba(140, 176, 255, 0.38);
+      --text: #e8eef8;
+      --muted: #93a4c2;
+      --faint: #6d7f9e;
+      --blue: #4c8dff;
+      --blue-2: #8eb6ff;
+      --blue-deep: #1a3f86;
+      --skill: #ffc14d;
+      --shadow: 0 24px 80px rgba(4, 10, 24, 0.55);
+      --radius: 22px;
+      --max: 1080px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 84px;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(920px 640px at 88% -6%, rgba(110, 168, 255, 0.46), transparent 58%),
+        radial-gradient(780px 560px at -10% 14%, rgba(48, 92, 200, 0.5), transparent 60%),
+        radial-gradient(980px 640px at 82% 46%, rgba(72, 132, 240, 0.26), transparent 62%),
+        radial-gradient(820px 560px at 0% 72%, rgba(96, 156, 255, 0.22), transparent 60%),
+        radial-gradient(900px 420px at 62% 100%, rgba(160, 196, 255, 0.24), transparent 68%),
+        linear-gradient(180deg, #141c32 0%, #070b12 22%, #08101c 50%, #141c30 100%);
+      font-family: Manrope, "Segoe UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.55;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(rgba(186, 210, 255, 0.34) 1px, transparent 1.25px);
+      background-size: 24px 24px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.34) 42%, rgba(0, 0, 0, 0.12) 100%);
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(180deg, rgba(38, 56, 88, 0.94), rgba(24, 36, 58, 0.92));
+      border-bottom: 1px solid rgba(176, 204, 255, 0.28);
+      box-shadow: inset 0 1px 0 rgba(198, 218, 255, 0.16), 0 16px 36px rgba(3, 8, 20, 0.32);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 64px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand {
+      flex: none;
+      font-family: Unbounded, Manrope, sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      flex: none;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .nav-links:hover { color: var(--text); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 40px;
+      align-items: center;
+      padding: 72px 0 36px;
+    }
+
+    .kicker {
+      margin: 0;
+      min-width: 0;
+      overflow: hidden;
+      color: var(--blue-2);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Unbounded, Manrope, sans-serif;
+      font-size: clamp(4.6rem, 12vw, 8.4rem);
+      font-weight: 700;
+      line-height: 0.9;
+      letter-spacing: -0.06em;
+    }
+
+    .subtitle {
+      margin: 22px 0 0;
+      max-width: 22em;
+      color: var(--blue-2);
+      font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle .version {
+      margin-right: 0.28em;
+      font-family: Unbounded, Manrope, sans-serif;
+      font-size: 1.2em;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: -0.04em;
+    }
+
+    .portrait-wrap {
+      justify-self: end;
+      position: relative;
+      width: fit-content;
+    }
+
+    .portrait-wrap::before {
+      content: "";
+      position: absolute;
+      right: 8px;
+      bottom: 16px;
+      width: 210px;
+      height: 210px;
+      background: radial-gradient(circle, rgba(76, 141, 255, 0.6), transparent 68%);
+      filter: blur(12px);
+    }
+
+    .portrait {
+      position: relative;
+      display: block;
+      width: min(320px, 100%);
+      aspect-ratio: 1;
+      height: auto;
+      object-fit: contain;
+    }
+
+    section {
+      padding: 28px 0 12px;
+      scroll-margin-top: 80px;
+    }
+
+    .section-label {
+      margin: 0 0 18px;
+      color: var(--faint);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: Unbounded, Manrope, sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+    }
+
+    .copy {
+      margin-top: 22px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 14px 14px 22px;
+      background: linear-gradient(180deg, rgba(18, 28, 48, 0.95), rgba(10, 16, 30, 0.95));
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), var(--shadow);
+    }
+
+    .copy p {
+      margin: 0;
+      flex: 1;
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 15px;
+      line-height: 1.45;
+      color: var(--blue-2);
+    }
+
+    button {
+      flex: none;
+      border: 0;
+      border-radius: 14px;
+      padding: 12px 16px;
+      background: var(--blue);
+      color: #06101f;
+      font: 700 14px Manrope, sans-serif;
+      cursor: pointer;
+    }
+
+    button:hover { background: #6ea4ff; }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--blue-2);
+      outline-offset: 3px;
+    }
+
+    button[data-state="done"] {
+      background: #d7e6ff;
+    }
+
+    .install-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 16px 0 8px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .install-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      text-decoration: none;
+      color: var(--text);
+      background: rgba(16, 24, 38, 0.8);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .install-links a:hover {
+      border-color: var(--line-strong);
+      color: var(--blue-2);
+    }
+
+    .install-links svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+    }
+
+    .flow {
+      margin: 28px 0 10px;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0;
+    }
+
+    .stage {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr);
+      gap: 8px 22px;
+      position: relative;
+      padding: 8px 0 36px;
+    }
+
+    .stage::before {
+      content: "";
+      position: absolute;
+      left: 45px;
+      top: 18px;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(var(--blue), rgba(76, 141, 255, 0.05));
+    }
+
+    .stage:last-child::before { display: none; }
+
+    .stage-index {
+      position: relative;
+      z-index: 1;
+      width: 92px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      margin-top: 4px;
+      border-radius: 999px;
+      background: #0c1526;
+      border: 1px solid var(--line-strong);
+      color: var(--blue-2);
+      font-family: Unbounded, Manrope, sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+    }
+
+    .stage h3 {
+      margin: 6px 0 8px;
+      font-family: Unbounded, Manrope, sans-serif;
+      font-size: 1.55rem;
+      letter-spacing: -0.04em;
+    }
+
+    .commands {
+      margin: 0 0 12px;
+      color: var(--skill);
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 14px;
+    }
+
+    a.commands {
+      color: var(--skill);
+      text-decoration: none;
+    }
+
+    a.commands:hover { text-decoration: underline; }
+
+    .stage p {
+      margin: 0;
+      max-width: 62ch;
+      color: var(--muted);
+    }
+
+    .stage > div > p:not(.commands) {
+      margin: 20px 0;
+    }
+
+    .stage p .commands {
+      margin: 0;
+      font-size: 0.92em;
+      color: var(--skill);
+    }
+
+    .stage p.commands { color: var(--skill); }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .flow-cards { grid-template-columns: repeat(3, 1fr); }
+
+    .split article {
+      padding: 16px 16px 14px;
+      background: rgba(16, 24, 38, 0.72);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+
+    .split h4 {
+      margin: 0 0 6px;
+      font-family: Manrope, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--blue-2);
+    }
+
+    .scheme {
+      display: flex;
+      gap: 22px;
+      margin: 16px 0 0;
+      padding: 28px 0 40px;
+      list-style: none;
+      overflow-x: auto;
+    }
+
+    .scheme li {
+      position: relative;
+      flex: 1 0 132px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+      padding: 12px 14px;
+      background: rgba(16, 24, 38, 0.72);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+
+    .scheme li:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--blue-2);
+      font-size: 16px;
+    }
+
+    .loop {
+      position: absolute;
+      left: calc(-100% - 22px + 36px);
+      width: calc(150% + 8px);
+      top: calc(100% + 6px);
+      height: 16px;
+      border: 2px solid var(--blue-2);
+      border-top: 0;
+      border-radius: 0 0 12px 12px;
+      pointer-events: none;
+    }
+
+    .loop::before {
+      content: "";
+      position: absolute;
+      left: -6px;
+      top: -7px;
+      border-width: 0 5px 7px;
+      border-style: solid;
+      border-color: transparent transparent var(--blue-2);
+    }
+
+    .loop-far {
+      left: calc(-200% - 8px);
+      width: calc(300% - 28px);
+      top: auto;
+      bottom: calc(100% + 6px);
+      border-top: 2px solid var(--blue-2);
+      border-bottom: 0;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .loop-far::before {
+      top: auto;
+      bottom: -7px;
+      border-width: 7px 5px 0;
+      border-color: var(--blue-2) transparent transparent;
+    }
+
+    .scheme span {
+      color: var(--faint);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .scheme .commands {
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .scheme p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .split p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .stage p:not(.commands) .commands {
+      white-space: nowrap;
+    }
+
+    .catalog {
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+
+    .catalog li {
+      display: grid;
+      grid-template-columns: minmax(220px, 280px) 1fr;
+      gap: 18px;
+      padding: 18px 4px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .catalog li { scroll-margin-top: 88px; }
+
+    .catalog code {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 14px;
+      color: var(--skill);
+    }
+
+    .catalog span {
+      color: var(--muted);
+    }
+
+    .close {
+      padding: 64px 0 48px;
+      text-align: center;
+    }
+
+    .close p {
+      margin: 0;
+      color: var(--faint);
+      font-size: 14px;
+    }
+
+    .close > p:first-child {
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .close .engineer { color: var(--blue-2); }
+    .close .love { color: #fe4133; }
+
+    .close-links {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 10px;
+    }
+
+    .close a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .close a:hover {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 720px) {
+      .wrap { width: min(var(--max), calc(100% - 28px)); }
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 36px;
+      }
+      .portrait-wrap { justify-self: start; }
+      .nav-brand { gap: 8px; }
+      .kicker { font-size: 13px; }
+      .portrait { width: 230px; }
+      .copy { flex-direction: column; align-items: stretch; padding: 16px; }
+      button { width: 100%; }
+      .stage { grid-template-columns: 64px minmax(0, 1fr); }
+      .stage-index { width: 64px; }
+      .stage::before { left: 31px; }
+      .split,
+      .flow-cards,
+      .catalog li { grid-template-columns: 1fr; gap: 6px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <div class="nav-brand">
+        <a class="brand" href="#top">ai-bro</a>
+        <p class="kicker">Твой бро для работы с ИИ</p>
+      </div>
+      <a class="nav-links" href="https://github.com/irpsv/ai-bro">GitHub</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="wrap hero">
+      <div>
+        <h1>ai-bro</h1>
+        <p class="subtitle"><span class="version">version 2</span> | Второй раз он всегда лучше!</p>
+      </div>
+      <div class="portrait-wrap">
+        <img class="portrait" src="assets/banner-squard.png?v=2" alt="Персонаж ai-bro: человек в синей кепке и чёрных очках">
+      </div>
+    </div>
+
+    <section id="install" class="wrap">
+      <p class="section-label">Установка</p>
+      <h2>Одна фраза агенту</h2>
+      <div class="copy">
+        <p id="install-phrase">Установи плагин из https://github.com/irpsv/ai-bro.</p>
+        <button type="button" id="copy-btn">Скопировать</button>
+      </div>
+      <ul class="install-links">
+        <li><a href="https://github.com/irpsv/ai-bro#cursor">Cursor <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10"/></svg></a></li>
+        <li><a href="https://github.com/irpsv/ai-bro#claude-code">Claude Code <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10"/></svg></a></li>
+        <li><a href="https://github.com/irpsv/ai-bro#codex-cli">Codex CLI <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 L12 4 M6 4 H12 V10"/></svg></a></li>
+      </ul>
+    </section>
+
+    <section id="flow" class="wrap">
+      <p class="section-label">Флоу</p>
+      <h2>Четыре этапа</h2>
+      <ol class="flow">
+        <li class="stage">
+          <div class="stage-index">01</div>
+          <div>
+            <h3>Обсуждение</h3>
+            <p class="commands">/bro-think-with-me</p>
+            <p>Первым делом садимся и штормим. Задачу проговариваем, пока не станет ясно, что именно решаем и зачем. Скилл сам выбирает ход.</p>
+            <div class="split flow-cards">
+              <article>
+                <h4>Прояснить неопределённость</h4>
+                <p>Что решаем и где вопрос ещё открыт.</p>
+              </article>
+              <article>
+                <h4>Проверить идею</h4>
+                <p>Логика, допущения и слабые места.</p>
+              </article>
+              <article>
+                <h4>Найти причину</h4>
+                <p>Почему поведение расходится с ожидаемым.</p>
+              </article>
+              <article>
+                <h4>Обойти понятную проблему</h4>
+                <p>Как решить то, причина чего уже ясна.</p>
+              </article>
+              <article>
+                <h4>Выбрать подход</h4>
+                <p>Какой путь лучше по целям и ограничениям.</p>
+              </article>
+            </div>
+          </div>
+        </li>
+        <li class="stage">
+          <div class="stage-index">02</div>
+          <div>
+            <h3>Спецификация</h3>
+            <p class="commands">/bro-give-me-spec · /bro-give-me-plan</p>
+            <p>Когда мысль уже на столе, её фиксируют так, чтобы потом не спорить о смысле. Оба скилла сразу не нужны — определись, что именно берёшь. <span class="commands">/bro-give-me-spec</span> создаёт спецификацию, а <span class="commands">/bro-give-me-plan</span> составляет пошаговый план.</p>
+            <div class="split">
+              <article>
+                <h4>Спецификация</h4>
+                <p>Документ о результате: задача и контекст, что должно получиться, рамки и критерии, по которым видно готовность. Как это делать, спецификация не решает — способ остаётся агенту.</p>
+              </article>
+              <article>
+                <h4>План</h4>
+                <p>Документ о пути. Задача разложена на однозначные шаги: что сделать и в каком порядке, без развилок и открытых вопросов.</p>
+              </article>
+            </div>
+          </div>
+        </li>
+        <li class="stage">
+          <div class="stage-index">03</div>
+          <div>
+            <h3>Реализация</h3>
+            <p class="commands">/bro-do-it</p>
+            <p>Затем переходим к реализации. Работа идёт итерациями: код, ревью, тестирование. Если ревью или тесты что-то находят, возвращаемся к коду и исправляем.</p>
+            <ol class="scheme">
+              <li>
+                <span>Разработка</span>
+                <p>Пишем код согласно плану или спецификации.</p>
+              </li>
+              <li>
+                <span>Ревью</span>
+                <p>Проверяем результат на соответствие безопасности, производительности и поставленной задаче.</p>
+                <i class="loop" aria-hidden="true"></i>
+              </li>
+              <li>
+                <span>Проверяем готовность</span>
+                <p>Тестируем полученный результат, чтобы убедиться, что нет регресса и всё работает как задумано.</p>
+                <i class="loop loop-far" aria-hidden="true"></i>
+              </li>
+              <li>
+                <span>Записываем в память проекта</span>
+                <p>Фиксируем в знаниях проекта всю важную информацию.</p>
+              </li>
+            </ol>
+          </div>
+        </li>
+        <li class="stage">
+          <div class="stage-index">04</div>
+          <div>
+            <h3>Финализация</h3>
+            <p class="commands">/bro-finish-it</p>
+            <p>Подчищаем сделанное: коммит, пуш, знания в банк и удаление временных артефактов.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="skills" class="wrap">
+      <p class="section-label">Скиллы</p>
+      <h2>Весь набор</h2>
+      <ul class="catalog">
+        <li id="skill-bro-on-board"><code>/bro-on-board</code><span>Знакомит с набором, картой скиллов и типовым порядком работы.</span></li>
+        <li id="skill-bro-init-memory-bank"><code>/bro-init-memory-bank</code><span>Создаёт memory bank с нуля и заполняет его в первый раз.</span></li>
+        <li id="skill-bro-think-with-me"><code>/bro-think-with-me</code><span>Помогает прояснить задачу, проверить идею, найти причину или выбрать подход.</span></li>
+        <li id="skill-bro-give-me-spec"><code>/bro-give-me-spec</code><span>Создаёт спецификацию результата и критерии приёмки, без шагов реализации.</span></li>
+        <li id="skill-bro-give-me-plan"><code>/bro-give-me-plan</code><span>Создаёт однозначный план реализации, без кода.</span></li>
+        <li id="skill-bro-review-spec-plan"><code>/bro-review-spec-plan</code><span>Ревьюит спецификацию или план и не правит их.</span></li>
+        <li id="skill-bro-do-it"><code>/bro-do-it</code><span>Реализует задачу из диалога, плана или спецификации: итерации, ревью, проверки.</span></li>
+        <li id="skill-bro-review-code"><code>/bro-review-code</code><span>Ревьюит изменения кода и не правит их.</span></li>
+        <li id="skill-bro-remember-it"><code>/bro-remember-it</code><span>Пополняет постоянные знания проекта: контекст, фичи, playbooks.</span></li>
+        <li id="skill-bro-finish-it"><code>/bro-finish-it</code><span>Закрывает работу: коммит, пуш, знания в банк, удаление временных spec и plan.</span></li>
+      </ul>
+    </section>
+
+    <footer class="close wrap">
+      <p>От <span class="engineer">инженера</span> для вайбкодеров с <span class="love">любовью</span> ❤️</p>
+      <p class="close-links">
+        <a href="https://github.com/irpsv/ai-bro">github</a>
+        <a href="https://github.com/irpsv">@irpsv</a>
+      </p>
+    </footer>
+  </main>
+
+  <script>
+    const phrase = document.querySelector("#install-phrase");
+    const button = document.querySelector("#copy-btn");
+
+    button.addEventListener("click", async () => {
+      const text = phrase.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const range = document.createRange();
+        range.selectNodeContents(phrase);
+        const selection = getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        document.execCommand("copy");
+        selection.removeAllRanges();
+      }
+      button.dataset.state = "done";
+      button.textContent = "Скопировано";
+      window.setTimeout(() => {
+        button.dataset.state = "";
+        button.textContent = "Скопировать";
+      }, 1800);
+    });
+  </script>
+</body>
+</html>
