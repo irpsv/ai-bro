@@ -251,8 +251,3 @@ npx skills add irpsv/ai-bro -g
 ```text
 /bro-remember-it добавь в базу знаний описание фичи rate limiting
 ```
-
-## TODO
-
-Дальнейший роадмап:
-1. Добавить каталоги плагинов для Claude Code и Codex.
