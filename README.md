@@ -37,7 +37,7 @@ npx skills add irpsv/ai-bro -g -s bro-think-with-me
 
 ## Скиллы
 
-### `/bro-init-memory-bank`
+### bro-init-memory-bank
 
 Создаёт memory bank с нуля: структуру каталогов и первичное заполнение контекста. Если банк уже есть, не перезаписывает его — пополнение идёт через `/bro-remember-it`.
 
@@ -45,7 +45,7 @@ npx skills add irpsv/ai-bro -g -s bro-think-with-me
 /bro-init-memory-bank заведи memory bank для этого проекта
 ```
 
-### `/bro-think-with-me`
+### bro-think-with-me
 
 Совместно проясняет задачу и не меняет код и артефакты. По запросу выбирается один внутренний workflow:
 
@@ -65,7 +65,7 @@ npx skills add irpsv/ai-bro -g -s bro-think-with-me
 /bro-think-with-me после последнего деплоя периодически падает создание заказа, помоги найти причину
 ```
 
-### `/bro-give-me-spec`
+### bro-give-me-spec
 
 Фиксирует, что должно получиться, без шагов реализации.
 
@@ -79,7 +79,7 @@ npx skills add irpsv/ai-bro -g -s bro-think-with-me
 /bro-give-me-spec зафиксируй спецификацию результата для rate limiting публичного API без шагов реализации
 ```
 
-### `/bro-give-me-plan`
+### bro-give-me-plan
 
 Составляет план реализации без кода.
 
@@ -93,7 +93,7 @@ npx skills add irpsv/ai-bro -g -s bro-think-with-me
 /bro-give-me-plan нужно составить план для добавления rate limiting на публичный API
 ```
 
-### `/bro-review-spec-plan`
+### bro-review-spec-plan
 
 Независимо проверяет уже написанную спецификацию или план и возвращает отчёт, не правя артефакт. Отдельный вызов нужен, когда артефакт уже есть вне цикла `/bro-give-me-spec` и `/bro-give-me-plan`.
 
@@ -103,7 +103,7 @@ npx skills add irpsv/ai-bro -g -s bro-think-with-me
 /bro-review-spec-plan проверь спецификацию в memory-bank/changes/add-rate-limit/spec.md
 ```
 
-### `/bro-do-it`
+### bro-do-it
 
 Берёт задачу в реализацию и доводит её до результата.
 
@@ -129,7 +129,7 @@ npx skills add irpsv/ai-bro -g -s bro-think-with-me
 /bro-do-it поправь текст ошибки в форме входа и добавь тест на этот сценарий
 ```
 
-### `/bro-review-code`
+### bro-review-code
 
 Проверяет изменения без исправлений кода.
 
@@ -150,7 +150,7 @@ npx skills add irpsv/ai-bro -g -s bro-think-with-me
 ```
 
 
-### `/bro-finish-it`
+### bro-finish-it
 
 После сделанной работы коммитит, пушит, дописывает знания и убирает временные артефакты, пропуская то, что уже закрыто. В конце кратко показывает итог и предлагает оформить PR и запись в таск-менеджере.
 
@@ -158,7 +158,7 @@ npx skills add irpsv/ai-bro -g -s bro-think-with-me
 /bro-finish-it закрой текущую задачу
 ```
 
-### `/bro-remember-it`
+### bro-remember-it
 
 Дописывает устойчивые знания о проекте — контекст, фичи, типовые процедуры — в уже существующее хранилище, без дублей. Рабочие спецификации и планы не создаёт.
 
