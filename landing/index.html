@@ -445,7 +445,7 @@
     .loop::before {
       content: "";
       position: absolute;
-      left: -4px;
+      left: -6px;
       top: -7px;
       border-width: 0 5px 7px;
       border-style: solid;
@@ -469,7 +469,8 @@
       border-color: var(--blue-2) transparent transparent;
     }
 
-    .scheme span {
+    .scheme span,
+    .scheme-mobile span {
       color: var(--faint);
       font-size: 11px;
       font-weight: 700;
@@ -482,12 +483,15 @@
       white-space: nowrap;
     }
 
-    .scheme p {
+    .scheme p,
+    .scheme-mobile p {
       margin: 0;
       color: var(--muted);
       font-size: 13px;
       line-height: 1.4;
     }
+
+    .scheme-mobile { display: none; }
 
     .split p {
       margin: 0;
@@ -570,10 +574,111 @@
         grid-template-columns: 1fr;
         padding-top: 36px;
       }
-      .portrait-wrap { justify-self: start; }
+      .portrait-wrap {
+        justify-self: center;
+        width: min(420px, 100%);
+      }
+      .portrait-wrap::before {
+        width: 72%;
+        height: 72%;
+        right: 6%;
+        bottom: 8%;
+      }
+      .portrait { width: 100%; }
       .nav-brand { gap: 8px; }
       .kicker { font-size: 13px; }
-      .portrait { width: 230px; }
+      .scheme-desktop { display: none; }
+      .scheme-mobile {
+        --scheme-gap: 32px;
+        --half-gap: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: var(--scheme-gap);
+        margin: 16px 0 0;
+        padding: 4px 28px 8px;
+        list-style: none;
+        overflow: visible;
+      }
+      .scheme-mobile li {
+        position: relative;
+        flex: none;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-width: 0;
+        padding: 12px 14px;
+        background: rgba(16, 24, 38, 0.72);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+      }
+      .scheme-mobile li:not(:last-child)::after {
+        content: "↓";
+        position: absolute;
+        left: 50%;
+        bottom: calc(var(--half-gap) * -1);
+        transform: translate(-50%, 50%);
+        color: var(--blue-2);
+        font-size: 16px;
+        line-height: 1;
+      }
+      .rail {
+        position: absolute;
+        width: 16px;
+        pointer-events: none;
+      }
+      .rail-near { left: -24px; width: 20px; }
+      .rail-far { right: -24px; width: 20px; }
+      .rail-near.rail-in,
+      .rail-far.rail-in { width: 13px; }
+      .rail-in {
+        top: 50%;
+        bottom: calc(var(--half-gap) * -1 - 1px);
+      }
+      .rail-out {
+        top: calc(var(--half-gap) * -1 - 1px);
+        bottom: 50%;
+      }
+      .rail-pass {
+        top: calc(var(--half-gap) * -1 - 1px);
+        bottom: calc(var(--half-gap) * -1 - 1px);
+      }
+      .rail-near.rail-in {
+        border-top: 2px solid var(--blue-2);
+        border-left: 2px solid var(--blue-2);
+        border-top-left-radius: 10px;
+      }
+      .rail-near.rail-out {
+        border-left: 2px solid var(--blue-2);
+        border-bottom: 2px solid var(--blue-2);
+        border-bottom-left-radius: 12px;
+      }
+      .rail-far.rail-pass { border-right: 2px solid var(--blue-2); }
+      .rail-far.rail-in {
+        border-top: 2px solid var(--blue-2);
+        border-right: 2px solid var(--blue-2);
+        border-top-right-radius: 10px;
+      }
+      .rail-far.rail-out {
+        border-right: 2px solid var(--blue-2);
+        border-bottom: 2px solid var(--blue-2);
+        border-bottom-right-radius: 12px;
+      }
+      .rail-in::before {
+        content: "";
+        position: absolute;
+        top: -4px;
+        border-style: solid;
+      }
+      .rail-near.rail-in::before {
+        right: -8px;
+        border-width: 5px 0 5px 7px;
+        border-color: transparent transparent transparent var(--blue-2);
+      }
+      .rail-far.rail-in::before {
+        left: -8px;
+        border-width: 5px 7px 5px 0;
+        border-color: transparent var(--blue-2) transparent transparent;
+      }
       .copy { flex-direction: column; align-items: stretch; padding: 16px; }
       button { width: 100%; }
       .stage { grid-template-columns: 64px minmax(0, 1fr); }
@@ -683,7 +788,7 @@
             <h3>Реализация</h3>
             <p class="commands">/bro-do-it</p>
             <p>Затем переходим к реализации. Работа идёт итерациями: код, ревью, тестирование. Если ревью или тесты что-то находят, возвращаемся к коду и исправляем.</p>
-            <ol class="scheme">
+            <ol class="scheme scheme-desktop">
               <li>
                 <span>Разработка</span>
                 <p>Пишем код согласно плану или спецификации.</p>
@@ -697,6 +802,29 @@
                 <span>Проверяем готовность</span>
                 <p>Тестируем полученный результат, чтобы убедиться, что нет регресса и всё работает как задумано.</p>
                 <i class="loop loop-far" aria-hidden="true"></i>
+              </li>
+              <li>
+                <span>Записываем в память проекта</span>
+                <p>Фиксируем в знаниях проекта всю важную информацию.</p>
+              </li>
+            </ol>
+            <ol class="scheme-mobile">
+              <li>
+                <span>Разработка</span>
+                <p>Пишем код согласно плану или спецификации.</p>
+                <i class="rail rail-near rail-in" aria-hidden="true"></i>
+                <i class="rail rail-far rail-in" aria-hidden="true"></i>
+              </li>
+              <li>
+                <span>Ревью</span>
+                <p>Проверяем результат на соответствие безопасности, производительности и поставленной задаче.</p>
+                <i class="rail rail-near rail-out" aria-hidden="true"></i>
+                <i class="rail rail-far rail-pass" aria-hidden="true"></i>
+              </li>
+              <li>
+                <span>Проверяем готовность</span>
+                <p>Тестируем полученный результат, чтобы убедиться, что нет регресса и всё работает как задумано.</p>
+                <i class="rail rail-far rail-out" aria-hidden="true"></i>
               </li>
               <li>
                 <span>Записываем в память проекта</span>
