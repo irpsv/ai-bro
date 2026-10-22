@@ -1,0 +1,38 @@
+name: Релиз плагина
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "plugin.json"
+      - ".cursor-plugin/plugin.json"
+      - ".cursor-plugin/marketplace.json"
+      - ".github/workflows/release-plugin.yml"
+      - ".github/scripts/release-plugin.sh"
+      - ".github/scripts/release-plugin.test.sh"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-plugin
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Проверить сценарии релиза
+        run: bash .github/scripts/release-plugin.test.sh
+
+      - name: Опубликовать релиз новее 2.0.0
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash .github/scripts/release-plugin.sh
