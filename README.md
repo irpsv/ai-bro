@@ -22,7 +22,7 @@ npx skills add irpsv/ai-bro -g -s bro-think-with-me
 
 ### Cursor
 
-В разделе `Customize` выбирайте `Plugins`, затем нажимайте `Add` и `From Github Repository`
+В разделе `Customize` выбирайте `Plugins`, затем нажимайте `Add` и `From Github Repository`.
 
 ### Claude Code
 
@@ -31,12 +31,9 @@ npx skills add irpsv/ai-bro -g -s bro-think-with-me
 Установи скиллы из репозитория https://github.com/irpsv/ai-bro
 ```
 
-### Codex CLI
+### Codex / ChatGPT
 
-В сессии Codex:
-```text
-Установи скиллы из репозитория https://github.com/irpsv/ai-bro
-```
+В разделе `Плагины` нажимайте `Добавить` и `Добавить маркетплейс`.
 
 ## Скиллы
 
