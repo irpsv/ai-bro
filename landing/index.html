@@ -517,6 +517,29 @@
       font-size: 15px;
     }
 
+    .standalone-lead {
+      margin: 18px 0 0;
+      max-width: 62ch;
+      color: var(--muted);
+    }
+
+    .solo {
+      margin-top: 28px;
+    }
+
+    .solo h4 {
+      margin: 0 0 10px;
+      font-family: Manrope, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--blue-2);
+    }
+
+    .solo .copy {
+      margin-top: 0;
+    }
+
     .stage p:not(.commands) .commands {
       white-space: nowrap;
     }
@@ -861,6 +884,36 @@
       </ol>
     </section>
 
+    <section class="wrap">
+      <p class="section-label">Шорткат</p>
+      <h2>Можно вызвать отдельно</h2>
+      <p class="standalone-lead">Выше — полный сценарий из четырёх этапов, от первой мысли до закрытия задачи. Проходить его целиком каждый раз не нужно. Если нужен один шаг, возьми соответствующий скилл и вызывай его отдельно.</p>
+
+      <div class="solo">
+        <h4>Поштормили идею и дальше идём своим ходом.</h4>
+        <div class="copy">
+          <p>/bro-think-with-me мне нужно понять, как лучше организовать удобный процесс авторизации</p>
+          <button type="button">Скопировать</button>
+        </div>
+      </div>
+
+      <div class="solo">
+        <h4>Сразу берём задачу в реализацию, без спецификации и плана.</h4>
+        <div class="copy">
+          <p>/bro-do-it поправь текст ошибки в форме входа и добавь тест на этот сценарий</p>
+          <button type="button">Скопировать</button>
+        </div>
+      </div>
+
+      <div class="solo">
+        <h4>Просим только ревью кода.</h4>
+        <div class="copy">
+          <p>/bro-review-code проверь текущую ветку относительно main</p>
+          <button type="button">Скопировать</button>
+        </div>
+      </div>
+    </section>
+
     <section id="skills" class="wrap">
       <p class="section-label">Скиллы</p>
       <h2>Весь набор</h2>
@@ -887,28 +940,31 @@
   </main>
 
   <script>
-    const phrase = document.querySelector("#install-phrase");
-    const button = document.querySelector("#copy-btn");
+    document.querySelectorAll(".copy").forEach((block) => {
+      const phraseEl = block.querySelector("p");
+      const btn = block.querySelector("button");
+      if (!phraseEl || !btn) return;
 
-    button.addEventListener("click", async () => {
-      const text = phrase.textContent.trim();
-      try {
-        await navigator.clipboard.writeText(text);
-      } catch {
-        const range = document.createRange();
-        range.selectNodeContents(phrase);
-        const selection = getSelection();
-        selection.removeAllRanges();
-        selection.addRange(range);
-        document.execCommand("copy");
-        selection.removeAllRanges();
-      }
-      button.dataset.state = "done";
-      button.textContent = "Скопировано";
-      window.setTimeout(() => {
-        button.dataset.state = "";
-        button.textContent = "Скопировать";
-      }, 1800);
+      btn.addEventListener("click", async () => {
+        const text = phraseEl.textContent.trim();
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch {
+          const range = document.createRange();
+          range.selectNodeContents(phraseEl);
+          const selection = getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          document.execCommand("copy");
+          selection.removeAllRanges();
+        }
+        btn.dataset.state = "done";
+        btn.textContent = "Скопировано";
+        window.setTimeout(() => {
+          btn.dataset.state = "";
+          btn.textContent = "Скопировать";
+        }, 1800);
+      });
     });
   </script>
 </body>
