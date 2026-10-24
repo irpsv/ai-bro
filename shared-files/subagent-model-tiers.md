@@ -26,7 +26,7 @@
 1. composer-2.5 / Composer 2.5
 2. gpt-6-luna-medium / GPT-6 Luna (effort=medium)
 3. claude-haiku-5-5-medium / Claude Haiku 5.5 (effort=medium)
-4. gemini-3.8-flash-low / Gemini 3.8 Flash (effort=low)
+4. gemini-3.5-flash-lite-minimal / Gemini 3.5 Flash-Lite (effort=minimal)
 5. kimi-k2.7-code / Kimi K2.7 Code
 6. kimi-k3-low / Kimi K3 (effort=low)
 
@@ -44,10 +44,9 @@
 1. composer-2.5 / Composer 2.5
 2. gpt-6.1-sol-medium / GPT-6.1 Sol (effort=medium)
 3. claude-sonnet-5-5-high / Claude Sonnet 5.5 (effort=high)
-4. gemini-3.1-pro / Gemini 3.1 Pro
-5. gemini-3.8-flash-high / Gemini 3.8 Flash (effort=high)
-6. glm-5p3-high / GLM 5.3 (effort=high)
-7. kimi-k3-high / Kimi K3 (effort=high)
+4. gemini-3.8-flash-medium / Gemini 3.8 Flash (effort=medium)
+5. glm-5p3-high / GLM 5.3 (effort=high)
+6. kimi-k3-high / Kimi K3 (effort=high)
 
 ## senior
 
