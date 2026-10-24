@@ -23,13 +23,14 @@
 
 Подходящие модели:
 
-1. gpt-5.6-luna-medium / GPT 5.6 Luna (effort=medium)
-2. gpt-5.4-mini-medium / GPT 5.4 Mini (effort=medium)
-3. gpt-5.4-nano-medium / GPT 5.4 Nano (effort=medium)
-4. claude-haiku-5-5-thinking-high / Claude Haiku 5.5 (thinking=true, effort=high)
-5. gemini-3.8-flash-low / Gemini 3.8 Flash (effort=low)
-6. kimi-k2.7-code / Kimi K2.7 Code
-7. kimi-k3-low / Kimi K3 (effort=low)
+1. composer-2.5 / Composer 2.5
+2. gpt-5.6-luna-medium / GPT 5.6 Luna (effort=medium)
+3. gpt-5.4-mini-medium / GPT 5.4 Mini (effort=medium)
+4. gpt-5.4-nano-medium / GPT 5.4 Nano (effort=medium)
+5. claude-haiku-5-5-thinking-high / Claude Haiku 5.5 (thinking=true, effort=high)
+6. gemini-3.8-flash-low / Gemini 3.8 Flash (effort=low)
+7. kimi-k2.7-code / Kimi K2.7 Code
+8. kimi-k3-low / Kimi K3 (effort=low)
 
 ## middle
 
@@ -63,7 +64,7 @@
 
 Подходящие модели:
 
-1. grok-4.7-high / Grok 4.7 (effort=high)
+1. grok-4.7-medium / Grok 4.7 (effort=medium)
 2. gpt-5.5-high / GPT 5.5 (effort=high)
 3. claude-opus-5-5-thinking-high / Claude Opus 5.5 (thinking=true, effort=high)
 4. kimi-k3-max / Kimi K3 (effort=max)
@@ -78,6 +79,7 @@
 
 Подходящие модели:
 
-1. gpt-5.6-sol-high / GPT 5.6 Sol (effort=high)
-2. claude-fable-5-1-thinking-high / Claude Fable 5.1 (thinking=true, effort=high)
-3. gemini-4-argon-high / Gemini 4 Argon (effort=high)
+1. grok-4.7-xhigh / Grok 4.7 (effort=xhigh)
+2. gpt-5.6-sol-high / GPT 5.6 Sol (effort=high)
+3. claude-fable-5-1-thinking-high / Claude Fable 5.1 (thinking=true, effort=high)
+4. gemini-4-argon-high / Gemini 4 Argon (effort=high)
