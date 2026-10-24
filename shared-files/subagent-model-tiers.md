@@ -27,8 +27,7 @@
 2. gpt-6-luna-medium / GPT-6 Luna (effort=medium)
 3. claude-haiku-5-5-medium / Claude Haiku 5.5 (effort=medium)
 4. gemini-3.5-flash-lite-minimal / Gemini 3.5 Flash-Lite (effort=minimal)
-5. kimi-k2.7-code / Kimi K2.7 Code
-6. kimi-k3-low / Kimi K3 (effort=low)
+5. kimi-k3.1-pro-low / Kimi K3.1 Pro (effort=low)
 
 ## middle
 
@@ -46,7 +45,7 @@
 3. claude-sonnet-5-5-high / Claude Sonnet 5.5 (effort=high)
 4. gemini-3.8-flash-medium / Gemini 3.8 Flash (effort=medium)
 5. glm-5p3-high / GLM 5.3 (effort=high)
-6. kimi-k3-high / Kimi K3 (effort=high)
+6. kimi-k3.1-pro-high / Kimi K3.1 Pro (effort=high)
 
 ## senior
 
@@ -63,7 +62,7 @@
 1. grok-4.7-high / Grok 4.7 (effort=high)
 2. gpt-6.1-sol-high / GPT-6.1 Sol (effort=high)
 3. claude-opus-5-5-high / Claude Opus 5.5 (effort=high)
-4. kimi-k3-max / Kimi K3 (effort=max)
+4. kimi-k3.1-pro-max / Kimi K3.1 Pro (effort=max)
 5. muse-wonder-1.0-high / Muse Wonder 1.0 (effort=high)
 6. gemini-4-argon-medium / Gemini 4 Argon (effort=medium)
 
@@ -79,3 +78,4 @@
 2. gpt-6-astra-xhigh / GPT-6 Astra (effort=xhigh)
 3. claude-fable-5-1-thinking-xhigh / Claude Fable 5.1 (thinking=true, effort=xhigh)
 4. gemini-4-argon-high / Gemini 4 Argon (effort=high)
+5. kimi-k3.1-pro-max / Kimi K3.1 Pro (effort=max)
