@@ -24,10 +24,5 @@
 Подходящие модели:
 
 1. composer-2.5 / Composer 2.5
-2. gpt-5.6-terra-medium / GPT 5.6 Terra (effort=medium)
-3. gpt-5.3-codex / GPT 5.3 Codex
-4. claude-sonnet-5-5-high / Claude Sonnet 5.5 (effort=high)
-5. gemini-3.1-pro / Gemini 3.1 Pro
-6. gemini-3.8-flash-high / Gemini 3.8 Flash (effort=high)
-7. glm-5p3-high / GLM 5.3 (effort=high)
-8. kimi-k3-high / Kimi K3 (effort=high)
+2. gpt-6.1-sol-medium / GPT-6.1 Sol (effort=medium)
+3. claude-sonnet-5-5-high / Claude Sonnet 5.5 (effort=high)
