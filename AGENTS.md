@@ -36,6 +36,7 @@
 3. В `.cursor-plugin/marketplace.json` синхронизируй `name` / `description` / `version` / `owner` с тем же смыслом.
 4. В `.cursor-plugin/plugin.json` проверь, что `skills` указывает на каталог скиллов, путь `logo` существует, `displayName` актуален. Эти поля **не** копируй в корневой `plugin.json`: схема Agent Plugins закрытая (`$schema`, `name`, `version`, `description`, `author`, `homepage`, `repository`, `license`, `keywords`; при необходимости `extensions`).
 5. В корневом `plugin.json` обязателен `"$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"`. JSON во всех трёх файлах должен быть валидным.
+6. После повышения `version` явно скажи пользователю вызвать внутренний скилл `/create-release` из `.agents/skills/create-release`. Сам этот скилл не вызывай: выпуск идёт только прямым вызовом. В `skills/` его не клади: это не часть поставки.
 
 ### Запрещено
 
