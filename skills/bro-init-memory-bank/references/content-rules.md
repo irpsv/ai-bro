@@ -19,6 +19,7 @@
 | Процедура | `playbooks/<slug>.md` | пошаговое типовое действие |
 | Спецификация результата | `changes/<feature-id>/spec.md` | **НЕ** создавай в этом скилле; используй `/bro-give-me-spec` |
 | План работ | `changes/<feature-id>/plan.md` | **НЕ** создавай в этом скилле; для планов используй `/bro-give-me-plan` |
+| Намерение | `todos/<slug>/todo.md` | **НЕ** создавай в этом скилле; фиксирует `/bro-remember-it` |
 
 ## project/decisions.md
 
