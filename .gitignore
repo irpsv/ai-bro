@@ -20,3 +20,7 @@ Thumbs.db
 # macOS resource fork
 *.AppleDouble
 .LSOverride
+
+# Python
+__pycache__/
+*.py[cod]
