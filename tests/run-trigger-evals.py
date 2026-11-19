@@ -2,7 +2,10 @@
 """Прогоняет trigger-evals через агентский харнес.
 
 Без имени скилла гоняет все скиллы, у которых есть evals/trigger-evals.json.
-С именем — только этот скилл. --agent задаёт харнес, например
+С именем — только этот скилл. --tests ограничивает прогон номерами
+кейсов с 1 через запятую, например --tests=1,4,5,67,8. Для одного
+скилла номер — позиция в его скобках [n/total]. Без имени скилла номер
+сквозной в порядке прогона. --agent задаёт харнес, например
 cursor:composer-2.5 или codex:ollama:gemma4. Без флага запускается
 cursor-agent с моделью по умолчанию.
 
@@ -28,6 +31,7 @@ import tempfile
 import threading
 import time
 from dataclasses import dataclass
+from itertools import groupby
 from pathlib import Path
 
 QUERY_TIMEOUT_SECONDS = 300
@@ -49,6 +53,14 @@ SKILLS_DIR = REPO_ROOT / "skills"
 
 class CursorAgentError(RuntimeError):
     pass
+
+
+@dataclass(frozen=True)
+class RunCase:
+    skill: str
+    local_index: int
+    global_index: int
+    case: dict
 
 
 @dataclass(frozen=True)
@@ -80,6 +92,27 @@ def parse_agent(value: str) -> AgentSpec:
         "ожидается cursor:<модель> или codex:ollama:<модель>, "
         "например cursor:composer-2.5 или codex:ollama:gemma4"
     )
+
+
+def parse_tests(value: str) -> list[int]:
+    if value.strip() == "":
+        raise argparse.ArgumentTypeError(
+            "ожидается список номеров с 1 через запятую, например 1,4,5,67,8"
+        )
+    numbers: list[int] = []
+    seen: set[int] = set()
+    for part in value.split(","):
+        item = part.strip()
+        if not item.isdigit() or int(item) < 1:
+            raise argparse.ArgumentTypeError(
+                "ожидается список номеров с 1 через запятую, "
+                f"например 1,4,5,67,8; получено {value!r}"
+            )
+        number = int(item)
+        if number not in seen:
+            seen.add(number)
+            numbers.append(number)
+    return numbers
 
 
 def link_skills(workspace: Path) -> list[tuple[str, Path]]:
@@ -541,6 +574,40 @@ def load_cases(skill: str) -> list[dict]:
     return cases
 
 
+def plan_run(
+    selected: list[tuple[str, list[dict]]],
+    tests: list[int] | None,
+) -> list[RunCase]:
+    flat: list[RunCase] = []
+    global_index = 0
+    for skill, cases in selected:
+        for local_index, case in enumerate(cases, start=1):
+            global_index += 1
+            flat.append(RunCase(skill, local_index, global_index, case))
+    if not flat:
+        raise CursorAgentError("нет кейсов для прогона")
+    if tests is None:
+        return flat
+
+    multiple = len(selected) > 1
+    total = len(flat) if multiple else len(selected[0][1])
+    by_number = {
+        item.global_index if multiple else item.local_index: item for item in flat
+    }
+    missing = [number for number in tests if number not in by_number]
+    if missing:
+        listed = ", ".join(str(number) for number in missing)
+        raise CursorAgentError(
+            f"нет кейсов с номерами {listed}. Доступны номера 1-{total}"
+        )
+    wanted = set(tests)
+    return [
+        item
+        for item in flat
+        if (item.global_index if multiple else item.local_index) in wanted
+    ]
+
+
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
@@ -552,6 +619,13 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "skill",
         nargs="?",
         help="имя скилла; без аргумента прогоняются все скиллы с trigger-evals.json",
+    )
+    parser.add_argument(
+        "--tests",
+        type=parse_tests,
+        help="номера кейсов с 1 через запятую, например 1,4,5,67,8. "
+        "Для одного скилла это номер в [n/total]. "
+        "Без имени скилла номер сквозной по всем скиллам в порядке прогона",
     )
     parser.add_argument(
         "--agent",
@@ -597,8 +671,14 @@ def _print_skill_header(name: str) -> None:
     print(file=sys.stderr, flush=True)
 
 
-def _print_case_header(index: int, total: int, query: str) -> None:
-    if index > 1:
+def _print_case_header(
+    index: int,
+    total: int,
+    query: str,
+    *,
+    leading_blank: bool,
+) -> None:
+    if leading_blank:
         print(file=sys.stderr, flush=True)
     width = len(str(total))
     counter = _paint(f"[{index:>{width}}/{total}]", _BOLD + _CYAN, stream=sys.stderr)
@@ -639,29 +719,46 @@ def _ensure_harness(agent: AgentSpec) -> None:
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     try:
-        _ensure_harness(args.agent)
         selected = [(skill, load_cases(skill)) for skill in select_skills(args.skill)]
+        run_cases = plan_run(selected, args.tests)
     except (OSError, json.JSONDecodeError, CursorAgentError) as error:
         _print_error(str(error))
         return 2
+    try:
+        _ensure_harness(args.agent)
+    except CursorAgentError as error:
+        _print_error(str(error))
+        return 2
 
+    multiple = len(selected) > 1
+    grand_total = sum(len(cases) for _, cases in selected)
+    skill_totals = {skill: len(cases) for skill, cases in selected}
     workspace = Path(tempfile.mkdtemp(prefix="trigger-evals-", dir="/tmp"))
     passed = 0
     total_cases = 0
+    skills_ran = 0
     try:
         _assert_under_tmp(workspace)
         links = link_skills(workspace)
         _print_setup(workspace, links, args.agent)
-        for skill, cases in selected:
+        for skill, group in groupby(run_cases, key=lambda item: item.skill):
+            items = list(group)
+            skills_ran += 1
             _print_skill_header(skill)
             skill_passed = 0
-            for index, case in enumerate(cases, start=1):
-                query = case["query"]
-                _print_case_header(index, len(cases), query)
+            label_total = grand_total if multiple else skill_totals[skill]
+            for offset, item in enumerate(items):
+                label_index = item.global_index if multiple else item.local_index
+                _print_case_header(
+                    label_index,
+                    label_total,
+                    item.case["query"],
+                    leading_blank=offset > 0,
+                )
                 try:
                     triggered = query_triggers_target(
                         workspace,
-                        query,
+                        item.case["query"],
                         skill,
                         args.agent,
                         verbose=args.verbose,
@@ -669,17 +766,17 @@ def main(argv: list[str] | None = None) -> int:
                 except CursorAgentError as error:
                     _print_error(str(error))
                     return 2
-                ok = triggered == case["should_trigger"]
+                ok = triggered == item.case["should_trigger"]
                 if ok:
                     skill_passed += 1
                 _print_status(ok)
-            _print_summary(skill_passed, len(cases))
+            _print_summary(skill_passed, len(items))
             passed += skill_passed
-            total_cases += len(cases)
+            total_cases += len(items)
     finally:
         _remove_workspace(workspace)
 
-    if len(selected) > 1:
+    if skills_ran > 1:
         _print_summary(passed, total_cases)
     return 0 if passed == total_cases else 1
 
